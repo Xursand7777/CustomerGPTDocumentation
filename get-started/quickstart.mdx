@@ -1,12 +1,155 @@
 ---
 title: "Quickstart"
-description: "Create a chatbot, train it on your website, and put it on your site in a few minutes."
+description: "Create a chatbot, train it on your website, and add it to your site in about five minutes."
 ---
 
-{/* TODO: write this page. Cover:
-  - Sign up at dashboard.customergpt.ai
-  - Create a chatbot
-  - Add your website as a source and wait for training
-  - Ask a test question in the preview
-  - Copy the embed snippet into your site
-*/}
+By the end of this guide, a chatbot trained on your website answers your visitors' questions in a chat bubble on your site.
+
+You need:
+
+- A website where you can add a script tag to the HTML, or a site builder that lets you add custom code.
+- A CustomerGPT account. New accounts start with a 14-day free trial, no credit card required.
+
+<Steps>
+  <Step title="Create your account">
+    Go to [dashboard.customergpt.ai](https://dashboard.customergpt.ai) and click **Sign Up**. Sign up with Google, or with your email address and a password. If you use email, confirm your address when asked.
+  </Step>
+
+  <Step title="Create a chatbot">
+    In **My Chatbots**, click **Create Custom Chatbot** and fill in:
+
+    - **Chatbot Name**: the name visitors see in the chat window, for example `Acme Support`.
+    - **Website Domain Link**: the site the chatbot will live on, for example `https://acme.com`.
+
+    Click **Create Widget**. The dashboard opens the **Customizer** for your new chatbot.
+
+    <Warning>
+      The widget loads only on the domain you enter here and its subdomains. With `https://acme.com`, it works on `acme.com` and `help.acme.com`, and on `localhost` while you develop, but not on `acme-store.com`.
+    </Warning>
+  </Step>
+
+  <Step title="Train it on your website">
+    A new chatbot doesn't know anything yet. Open **Knowledge Base** in the sidebar.
+
+    Under **Crawl Website Links**, paste a page from your site and click **Crawl Link**. The crawler starts from that page and follows links on your domain. Leave **Remove headers, footers, sidebars, and navigation links** checked, so menus and page chrome stay out of the answers.
+
+    To add documents, drag PDF or TXT files (up to 10 MB each) onto the upload area, or click **Browse Files**.
+
+    Each source appears under **Trained Knowledge Sources**. Wait until it shows **completed** before you test.
+
+    <Tip>
+      Start with the pages customers ask about most: pricing, FAQ, shipping and returns, getting started. You can add more at any time.
+    </Tip>
+
+    <Note>
+      The crawler reads the HTML your server sends and doesn't run JavaScript. If a page builds its text in the browser, the crawl comes back with little or nothing. Upload that content as a file instead.
+    </Note>
+  </Step>
+
+  <Step title="Make it yours">
+    This step is optional. In **Customizer**, under **General Settings**, set:
+
+    - **Welcome Message Greeting**: the first message visitors see.
+    - **Quick Prompts / Icebreakers**: click **+ Add Prompt** to add questions visitors can click to start, such as "How much does it cost?"
+    - **Branding Primary Color**: the widget's main color.
+
+    Changes save as you type.
+  </Step>
+
+  <Step title="Test it">
+    Every chatbot has a **Widget ID**, shown on its card in **My Chatbots** with a copy button. Open this address in your browser, with your ID in place of `YOUR_WIDGET_ID`:
+
+    ```text
+    https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID
+    ```
+
+    Ask the questions your customers ask. Then ask something your content doesn't cover: the chatbot should say it can't confirm the answer rather than make one up.
+
+    <Note>
+      Test conversations are real conversations. They appear in **Chat History** and count toward your plan's monthly messages.
+    </Note>
+  </Step>
+
+  <Step title="Add it to your website">
+    In **Customizer**, scroll to **Get Embed Code**, keep **HTML Script** selected, and click **Copy Code**. Paste the code into your site's HTML just before the closing `</body>` tag, then publish your site:
+
+    ```html
+    <script src="https://widget.customergpt.ai/embed.js" data-widget-id="YOUR_WIDGET_ID" defer></script>
+    ```
+
+    A chat bubble appears in the bottom-right corner of your site.
+
+    The other tabs under **Get Embed Code** cover other setups:
+
+    <CodeGroup>
+      ```html Lazy HTML
+      <!-- Loads the widget once the page is idle, so it never slows the first render -->
+      <script src="https://widget.customergpt.ai/embed.js" data-widget-id="YOUR_WIDGET_ID" data-lazy="true" defer></script>
+      ```
+
+      ```jsx Next.js
+      import Script from "next/script";
+
+      // In your root layout, so the widget is on every page
+      <Script
+        src="https://widget.customergpt.ai/embed.js"
+        data-widget-id="YOUR_WIDGET_ID"
+        strategy="afterInteractive"
+      />
+      ```
+
+      ```html IFrame
+      <!-- Shows the chat panel inside a container on one page, instead of a bubble -->
+      <iframe
+        src="https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID"
+        title="CustomerGPT Support Assistant"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; height: 100%; background: transparent !important; color-scheme: none;"
+        allow="clipboard-write">
+      </iframe>
+      ```
+    </CodeGroup>
+
+    Using a site builder? See [WordPress](/install/wordpress) and [Webflow](/install/webflow).
+  </Step>
+</Steps>
+
+## Prefer the terminal?
+
+<Accordion title="Do the same steps with the CLI">
+  The CLI needs Node.js 20 or later and a plan with API access.
+
+  ```bash
+  npm install -g @customergpt/cli
+  customergpt login
+  customergpt chatbots create "Acme Support" --url https://acme.com --yes
+  ```
+
+  `chatbots create` prints the new chatbot's `id`. Use it in place of `BOT_ID`:
+
+  ```bash
+  customergpt knowledge website add https://acme.com --chatbot BOT_ID --yes --wait
+  customergpt messages send "What do you offer?" --chatbot BOT_ID --yes
+  customergpt installation snippet --chatbot BOT_ID
+  ```
+
+  By default the CLI crawl reads up to five pages from the same site. Add `--max-pages 20` for a larger crawl. See [CLI](/cli/overview) for everything else.
+</Accordion>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Your first week" icon="calendar-check" href="/get-started/your-first-week">
+    What to check after launch so answers improve quickly.
+  </Card>
+  <Card title="Add your website" icon="globe" href="/knowledge/add-your-website">
+    More ways to train: sitemaps, exact page lists, and re-syncing.
+  </Card>
+  <Card title="Change how the widget looks" icon="palette" href="/customize/widget-appearance">
+    Name, avatar, color, and welcome message.
+  </Card>
+  <Card title="Collect leads" icon="user-plus" href="/leads/collect-leads">
+    Ask for contact details during the conversation.
+  </Card>
+</CardGroup>
