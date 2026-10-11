@@ -6,7 +6,7 @@ description: "Set the chatbot's name, welcome message, and color."
 Select your chatbot and open **Customizer**. Under **General Settings**:
 
 - **Chatbot Name**: the name visitors see in the chat window.
-- **Welcome Message Greeting**: the first message in the chat, up to 500 characters. If you leave it empty, visitors see "👋 Hello! How can I help you today?"
+- **Welcome Message Greeting**: the first message in the chat. If you leave it empty, visitors see "👋 Hello! How can I help you today?"
 - **Branding Primary Color**: the widget's main color. Pick it with the color picker or type a hex code such as `#224CFF`.
 
 Changes save as you type. Visitors see them the next time the widget loads.
@@ -19,7 +19,7 @@ To see the result, open your widget's test page, `https://widget.customergpt.ai/
 
 ## From the CLI
 
-On plans with API access:
+On plans with API access, you can set the same fields from the terminal. The CLI accepts welcome messages of up to 500 characters:
 
 ```bash
 customergpt chatbots update BOT_ID --name "Acme Support" --welcome "Hi! Ask me anything about Acme." --color "#224CFF" --yes
