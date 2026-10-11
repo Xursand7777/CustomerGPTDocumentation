@@ -1,9 +1,28 @@
 ---
 title: "Improve answers from conversations"
-description: "Turn a wrong or weak answer into training so it does not happen again."
+description: "Find weak answers in your conversations, fix the cause, and check the result."
 ---
 
-{/* TODO: write this page. Cover:
-  - Correcting an answer from the conversation view
-  - How corrections are used in future answers
-*/}
+The chatbot answers from your content, so a wrong or weak answer almost always points to something in that content. Fix the content and the answer follows.
+
+## Find the answers worth fixing
+
+- **Knowledge gaps.** In **Dashboard**, the [Knowledge gaps](/knowledge/knowledge-gaps) report lists the questions your content couldn't answer, grouped and counted. Start with the ones asked most often.
+- **Chat History.** Read recent conversations, especially those with **Negative sentiment** or a **🎧 LIVE** badge: a visitor who asked for a person often didn't get what they needed. See [Review conversations](/conversations/review-conversations).
+
+## Fix the cause
+
+| What went wrong | What to do |
+| --- | --- |
+| The answer isn't in your content | Add it from the knowledge gap with **Add answer to knowledge base**, or add the page or file that contains it. |
+| Your site has the wrong fact | Fix the page, then [re-sync](/knowledge/keep-content-up-to-date) the source. |
+| Two pages disagree | Keep the fact on one page and link to it from the other. |
+| The wording must be exact | Add a [custom response](/knowledge/custom-responses). |
+
+## Check the fix
+
+Ask the same question again on your widget's test page, `https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID`. Test messages count toward your monthly messages.
+
+<Note>
+  Importing past support conversations, for example from Zendesk, so the chatbot learns your team's tone isn't available in the dashboard yet.
+</Note>

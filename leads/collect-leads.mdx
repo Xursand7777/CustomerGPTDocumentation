@@ -1,11 +1,64 @@
 ---
 title: "Collect leads"
-description: "Ask visitors for their contact details during the conversation."
+description: "Let the chatbot qualify visitors and collect their contact details, then follow up from Chat History, HubSpot, or a webhook."
 ---
 
-{/* TODO: write this page. Cover:
-  - Turning on lead collection
-  - Which fields to ask for and when
-  - Where leads appear
-  - Sending leads to HubSpot, Zapier, or a webhook
-*/}
+CustomerGPT collects leads in two ways:
+
+- **Contact details in any conversation.** When a visitor types an email address or phone number, it's saved to the conversation's **User Details**.
+- **Sales Automation.** The chatbot asks qualifying questions, collects the visitor's name and contact details, and offers a next step. It's on by default for every chatbot.
+
+## Sales Automation
+
+Select your chatbot and open **Sales Automation** in the sidebar.
+
+When it's on, the chatbot:
+
+- answers the visitor's question first, from your knowledge base, then asks one qualification question at a time, without repeating questions already answered;
+- asks for the visitor's name and email or phone naturally, without pressure;
+- replies in the visitor's language;
+- decides whether the visitor qualifies, based on your instructions, once the required questions are answered;
+- offers a next step: book a meeting, go to your checkout or sign-up page, or talk to your team.
+
+### Settings
+
+- **Sales instructions and qualification criteria**: which customers fit your product, and when to offer a demo. Keep prices and product details in your [knowledge base](/knowledge/add-your-website), not here.
+- **Qualification questions**: each has a **Field key** such as `team_size`, the **Question** the chatbot asks, and whether it's **Required**. The defaults ask about the company (optional), the use case, the team size, and the timeline. Use **Add question** and **Remove** to change them.
+- **Next steps**:
+  - **Offer meeting booking** shows your calendar in the chat. It needs Cal.com connected; see [Book meetings](/leads/book-meetings).
+  - **Checkout or signup URL** gives the chatbot a button to send ready visitors to.
+  - **Transfer to a person when these phrases appear** lists the phrases that hand the chat to your team. See [Take over a conversation](/conversations/take-over-a-conversation).
+  - **Send contacts and qualification summaries to HubSpot** creates or updates a HubSpot contact for each lead, matched by email. It needs HubSpot connected in **Integrations**; see [Connect HubSpot](/integrations/hubspot).
+
+Click **Save sales settings** to apply your changes, or **Restore default settings** to start over. To check your settings, click **Test saved settings**. The preview doesn't create leads, meetings or CRM deliveries, but its AI replies count toward your monthly messages.
+
+To turn Sales Automation off, click **Turn off sales automation**. The chatbot then only answers questions. See [How answers work](/introduction/how-answers-work).
+
+### Invite visitors to chat
+
+Under **Proactive invitation**, turn on **Invite visitors to chat on a selected page** and set:
+
+- **Page path prefix**: the pages where the invitation appears, for example `/pricing`.
+- **Visible page time before invitation (seconds)**: how long the visitor has to be on the page first.
+- **Invitation message**: the text in the bubble, for example "Need help choosing the right plan?"
+
+The invitation appears once per browser session, and visitors can dismiss it. It's off by default.
+
+## Lead scores
+
+Every conversation gets a lead score:
+
+| Score | With Sales Automation | Without Sales Automation |
+| --- | --- | --- |
+| 🔥 Hot | The visitor qualified | The visitor asked about price, wants to buy or order, left contact details, or asked for a callback |
+| 🟡 Warm | The visitor left an email or phone number | The visitor asked about specs, options, warranty, delivery times, or availability |
+| ❄️ Cold | Neither yet | None of the above |
+
+## Where leads show up
+
+- **Chat History**: filter by **Leads: Hot**, **Warm** or **Cold**. **User Details** shows the email and phone, and **Sales qualification** shows where the conversation started and any booking.
+- **Dashboard**: **Captured Visitor Leads** lists the email addresses visitors left, with a **Follow Up** action.
+- **Sales Automation**: **Sales activity** counts conversations at each stage, all time: invitations shown and accepted, conversations, contacts captured, qualified leads, confirmed meetings, and checkout clicks.
+- **HubSpot**, if you turned on **Send contacts and qualification summaries to HubSpot**.
+- **Your own systems**: on the Scale plan and above, a [`lead.captured` webhook](/developers/webhooks) fires the first time a visitor leaves an email or phone number in a conversation.
+- **The CLI**: `customergpt leads list --chatbot BOT_ID`.

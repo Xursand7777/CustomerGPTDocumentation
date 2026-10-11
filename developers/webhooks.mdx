@@ -1,11 +1,112 @@
 ---
 title: "Webhooks"
-description: "Receive conversation and lead events at your own endpoint."
+description: "Receive messages, leads, handoffs, and bookings at your own endpoint, signed so you can verify them."
 ---
 
-{/* TODO: write this page. Cover:
-  - Setting the webhook URL
-  - Verifying requests with the webhook secret
-  - Event payloads
-  - Retries
-*/}
+A webhook sends an HTTP POST to your URL when something happens in a conversation. Use it to feed your CRM or helpdesk, or a Make, n8n or Zapier flow.
+
+Webhooks are available on the Scale plan and above.
+
+## Set up a webhook
+
+1. Select your chatbot and open **Sales Automation**.
+2. Under **External integration (Webhook)**, enter the **Destination webhook URL**.
+3. Enter a **Signing secret**: a long random string that only you and the receiver know.
+4. Click **Save integration**.
+
+The same two fields are also in **Customizer**, under **Outgoing Webhooks**, where **Generate Secret** creates a secret for you. Both places change the same settings. The webhook works whether Sales Automation is on or off.
+
+<Warning>
+  Always set a signing secret. Without one, the signature can't prove that a request came from CustomerGPT.
+</Warning>
+
+The URL must be publicly reachable on the standard port, 443 for HTTPS or 80 for HTTP. Use HTTPS so the payload is encrypted in transit. CustomerGPT doesn't send webhooks to `localhost` or private network addresses, and doesn't follow redirects.
+
+## Events
+
+| Event | Sent when |
+| --- | --- |
+| `message.created` | The visitor sends a message and the chatbot replies: one event for each. Messages in a conversation a person has taken over don't send this event. |
+| `lead.captured` | A visitor leaves an email or phone number for the first time in a conversation, with Sales Automation on. Sent once per conversation. |
+| `conversation.escalated` | A conversation is handed to your team, either by the visitor or by Sales Automation. See [Take over a conversation](/conversations/take-over-a-conversation). |
+| `booking.created` | A visitor books a meeting in the chat. See [Book meetings](/leads/book-meetings). |
+
+## The request
+
+```http
+POST /your/endpoint HTTP/1.1
+Content-Type: application/json
+x-customergpt-signature: 5d41402abc4b2a76b9719d911017c592...
+x-customergpt-timestamp: 1791712800000
+x-customergpt-event-id: 0b5a7c1e-3f0e-4c4b-9b8f-2f6a1d9e7c11
+```
+
+```json
+{
+  "eventId": "0b5a7c1e-3f0e-4c4b-9b8f-2f6a1d9e7c11",
+  "timestamp": 1791712800000,
+  "event": "lead.captured",
+  "payload": {
+    "chatbotId": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+    "conversationId": "c2f1d6a4-8b1e-4f7a-9c3d-5e6f7a8b9c0d",
+    "visitorName": "Visitor",
+    "visitorEmail": "jane@example.com",
+    "visitorPhone": "N/A",
+    "salesProfile": {
+      "fields": { "use_case": "Support for our online store", "team_size": "5" },
+      "status": "collecting",
+      "reason": "Use case fits; timeline not answered yet",
+      "capturedAt": "2026-10-11T09:20:00.000Z"
+    }
+  }
+}
+```
+
+`timestamp` is in milliseconds. Fields the visitor hasn't given are sent as `"N/A"`.
+
+### Payload by event
+
+| Event | Fields in `payload` |
+| --- | --- |
+| `message.created` | `chatbotId`, `conversationId`, `sender` (`visitor` or `bot`), `text`, `time` |
+| `lead.captured` | `chatbotId`, `conversationId`, `visitorName`, `visitorEmail`, `visitorPhone`, `salesProfile` |
+| `conversation.escalated` | `chatbotId`, `conversationId`, `visitorName`, `visitorEmail`, `visitorPhone`, plus `salesProfile` when Sales Automation handed it over or `startedOn` when the visitor asked |
+| `booking.created` | `chatbotId`, `conversationId`, `eventTitle`, `attendeeName`, `attendeeEmail`, `startTime`, `bookingUid` |
+
+## Verify the signature
+
+`x-customergpt-signature` is the hex-encoded HMAC-SHA256 of the raw request body, keyed with your signing secret. Compute it over the body exactly as received, before parsing the JSON:
+
+```js
+import crypto from "node:crypto";
+import express from "express";
+
+const app = express();
+
+app.post("/webhooks/customergpt", express.raw({ type: "application/json" }), (req, res) => {
+  const expected = crypto
+    .createHmac("sha256", process.env.CUSTOMERGPT_WEBHOOK_SECRET)
+    .update(req.body)
+    .digest("hex");
+  const received = req.get("x-customergpt-signature") ?? "";
+  const valid =
+    received.length === expected.length &&
+    crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
+  if (!valid) return res.sendStatus(401);
+
+  // Reject old requests so a captured one can't be replayed later
+  const age = Date.now() - Number(req.get("x-customergpt-timestamp"));
+  if (!(age >= 0 && age < 5 * 60 * 1000)) return res.sendStatus(401);
+
+  const { eventId, event, payload } = JSON.parse(req.body);
+  // Process the event, skipping any eventId you've already handled
+  res.sendStatus(200);
+});
+```
+
+## Delivery and retries
+
+- CustomerGPT waits up to 10 seconds for your response. Any `2xx` status counts as delivered.
+- Any other status, or a timeout, is retried with growing delays, from 15 seconds up to an hour between attempts. After 8 attempts, the delivery is marked failed.
+- Because of retries, the same event can arrive more than once. Use `eventId` to skip duplicates.
+- **Sales Automation → Recent deliveries** shows the status and number of attempts for each delivery.

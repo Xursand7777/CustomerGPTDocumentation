@@ -1,10 +1,28 @@
 ---
 title: "Limit messages per visitor"
-description: "Protect your message quota from spam with per-visitor rate limits."
+description: "Protect your monthly messages from spam with limits per conversation and per minute."
 ---
 
-{/* TODO: write this page. Cover:
-  - Max messages per conversation
-  - Messages per minute
-  - What visitors see when they hit a limit
-*/}
+Every message the chatbot answers counts toward your plan's monthly messages. Rate limits stop one visitor, or a script, from using them all up.
+
+Rate limits are available on the Growth plan and above.
+
+## Set the limits
+
+Select your chatbot, open **Customizer**, and go to **Rate Limiting & Usage Limits**:
+
+- **Max Messages per Conversation**: how many messages one visitor can send in a conversation. Leave it empty for no limit.
+- **Messages per Minute (Anti-Spam)**: how many messages one conversation can send per minute. Leave it empty for no limit.
+
+Changes save as you type.
+
+## What visitors see
+
+When a visitor hits a limit, the chatbot doesn't answer, and the chat shows one of these messages, with your number in the first:
+
+- `CONVERSATION_LIMIT_REACHED: You have reached the maximum limit of 20 messages for this conversation.`
+- `RATE_LIMIT_EXCEEDED: You are sending messages too quickly. Please wait a moment.`
+
+## Monthly messages
+
+Rate limits are separate from your plan's monthly messages. When those run out, the chatbot stops answering everyone until the count resets or you upgrade. Track your usage on the **Dashboard** page; see [Track performance with analytics](/leads/analytics#plan-usage).

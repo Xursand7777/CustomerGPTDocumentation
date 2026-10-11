@@ -1,9 +1,42 @@
 ---
 title: "Track performance with analytics"
-description: "See conversation volume, answer rate, and leads over time."
+description: "See your plan usage, how much the chatbot resolves on its own, and the leads it captured."
 ---
 
-{/* TODO: write this page. Cover:
-  - Metrics and what they mean
-  - Date ranges and per-chatbot views
-*/}
+Select your chatbot and click **Dashboard** in the sidebar.
+
+## Plan usage
+
+**Plan Usage & Message Limits** shows how much of your plan you've used:
+
+- **Monthly AI Messages**: messages used this month. The count resets monthly.
+- **Active Chatbots**: chatbots you have, out of your plan's slots.
+- **Knowledge Index Capacity**: files and links indexed, out of your plan's limit.
+- **Total Links**, **Total Files** and **Total Conversations**, each with a link to the matching page.
+
+When you run out of monthly messages, the chatbot stops answering until the count resets or you upgrade. Visitors see a message saying the monthly limit is reached. Manage your plan with **Manage / Upgrade Plan**.
+
+## Performance
+
+| Card | What it measures |
+| --- | --- |
+| **Questions Answered** | Questions the chatbot answered |
+| **Avg. Messages / Conversation** | Average length of a conversation |
+| **Positive Feedback** / **Negative Feedback** | The tone of visitors' messages, estimated from their text in English and Russian. Despite the label, these are not thumbs-up or thumbs-down ratings. |
+| **Visitors Online Now** | Visitors on a page with your widget right now |
+| **Context Accuracy** | The share of questions your content had an answer for. It measures coverage, not whether each answer was right. |
+| **Support Tickets Saved** | The share of all conversations that were closed and that only the chatbot answered |
+
+**Context Accuracy** rises as you fill [knowledge gaps](/knowledge/knowledge-gaps), which appear further down the same page.
+
+## Captured leads
+
+**Captured Visitor Leads** lists the email addresses visitors left, with the time each was captured and a **Follow Up** action. For more ways to see and route leads, see [Collect leads](/leads/collect-leads#where-leads-show-up).
+
+## From the CLI
+
+On plans with API access:
+
+```bash
+customergpt analytics get --chatbot BOT_ID
+```
