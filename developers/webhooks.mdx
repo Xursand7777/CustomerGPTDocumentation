@@ -107,6 +107,6 @@ app.post("/webhooks/customergpt", express.raw({ type: "application/json" }), (re
 ## Delivery and retries
 
 - CustomerGPT waits up to 10 seconds for your response. Any `2xx` status counts as delivered.
-- Any other status, or a timeout, is retried with growing delays, from 15 seconds up to an hour between attempts. After 8 attempts, the delivery is marked failed.
+- Any other status, or a timeout, is retried. The delay starts at 30 seconds and doubles after each failure, up to an hour. After 8 attempts, the delivery is marked failed.
 - Because of retries, the same event can arrive more than once. Use `eventId` to skip duplicates.
 - **Sales Automation → Recent deliveries** shows the status and number of attempts for each delivery.
