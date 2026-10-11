@@ -1,11 +1,28 @@
 ---
 title: "Change how the widget looks"
-description: "Set the chatbot name, avatar, color, and welcome message."
+description: "Set the chatbot's name, welcome message, and color."
 ---
 
-{/* TODO: write this page. Cover:
-  - Name and avatar
-  - Primary color
-  - Welcome message
-  - Preview before publishing
-*/}
+Select your chatbot and open **Customizer**. Under **General Settings**:
+
+- **Chatbot Name**: the name visitors see in the chat window.
+- **Welcome Message Greeting**: the first message in the chat, up to 500 characters. If you leave it empty, visitors see "👋 Hello! How can I help you today?"
+- **Branding Primary Color**: the widget's main color. Pick it with the color picker or type a hex code such as `#224CFF`.
+
+Changes save as you type. Visitors see them the next time the widget loads.
+
+To see the result, open your widget's test page, `https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID`, or your own site.
+
+<Note>
+  The bubble always sits in the bottom-right corner. The avatar, position, and size can't be changed yet.
+</Note>
+
+## From the CLI
+
+On plans with API access:
+
+```bash
+customergpt chatbots update BOT_ID --name "Acme Support" --welcome "Hi! Ask me anything about Acme." --color "#224CFF" --yes
+```
+
+To change what the chatbot offers before the first message, see [Add quick prompts](/customize/quick-prompts).

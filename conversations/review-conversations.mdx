@@ -1,9 +1,55 @@
 ---
 title: "Review conversations"
-description: "Read what visitors ask and how the chatbot answers."
+description: "Read every conversation in Chat History, filter by status and lead score, and close the ones that are done."
 ---
 
-{/* TODO: write this page. Cover:
-  - Finding and filtering conversations
-  - Tags and bulk actions
-*/}
+Open **Chat History** in the sidebar. Conversations update live: new messages appear as they arrive, without refreshing the page.
+
+## Find a conversation
+
+The list on the left shows your conversations, newest first. Narrow it with the filters at the top:
+
+- **All**, **Open**, or **Closed**.
+- **Leads: All**, **🔥 Hot**, **🟡 Warm**, or **❄️ Cold**. See [lead scores](/leads/collect-leads#lead-scores).
+- The chatbot, if you have more than one.
+
+Badges on each conversation tell you what needs attention:
+
+- **🎧 LIVE**: a person has taken over, and the chatbot is paused. See [Take over a conversation](/conversations/take-over-a-conversation).
+- **🔥 HOT** or **🟡 WARM**: the visitor's lead score.
+
+Click **Load More Conversations** at the bottom for older ones.
+
+## Read a conversation
+
+Click a conversation to open it. The header shows whether the visitor is **Online** or **Offline** right now, and when the conversation started. Older messages load as you scroll up.
+
+The panel on the right, **Conversation Details**, shows:
+
+- **Total Messages** in the conversation.
+- **Positive**, **Negative**, and **Neutral sentiment**: a text-based estimate for English and Russian, across the visitor's messages only. It isn't a rating the visitor gave.
+- **Lead Score**, with the **AI lead analysis** that explains it.
+- **Sales qualification**: the page the conversation started on and, if the visitor booked a meeting, the booking ID.
+- **User Details**: the visitor's **Email** and **Phone**. They're filled in automatically when the visitor types them in the chat.
+
+## Close a conversation
+
+Click the **✓✓** button in the conversation header to mark it resolved. Click it again to reopen the conversation.
+
+Closed conversations that only the chatbot answered count as **Support Tickets Saved** in [analytics](/leads/analytics).
+
+## Tags and bulk changes
+
+Tags aren't in the dashboard yet. With the CLI (plans with API access), you can tag conversations, filter them, and close many at once:
+
+```bash
+# Conversations a person is handling, or ones that captured contact details
+customergpt conversations list --chatbot BOT_ID --mode human
+customergpt conversations list --chatbot BOT_ID --leads-only
+
+# Add or remove a tag
+customergpt conversations tag CONVERSATION_ID --chatbot BOT_ID --add refund --yes
+
+# Close up to 100 conversations at once: check with --dry-run, then run again with --yes
+customergpt conversations bulk-update CONVERSATION_ID OTHER_ID --chatbot BOT_ID --status closed --dry-run
+```

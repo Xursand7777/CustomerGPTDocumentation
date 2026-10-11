@@ -1,10 +1,36 @@
 ---
 title: "Take over a conversation"
-description: "Step in and reply to a visitor yourself when the chatbot should not."
+description: "Pause the chatbot and reply to a visitor yourself, then hand the conversation back."
 ---
 
-{/* TODO: write this page. Cover:
-  - When a human should take over
-  - Replying as an agent
-  - Handing the conversation back to the chatbot
-*/}
+Any conversation can switch from the chatbot to a person on your team. While it's in this live mode, the chatbot stays quiet, and you and the visitor talk directly.
+
+## How a conversation reaches your team
+
+- **The visitor asks for a person.** The chat header has a **🎧** button, **Speak to a Human Agent**. Clicking it pauses the chatbot and adds a message to the chat: **🎧 Live Agent support requested. AI is now paused.**
+- **Sales Automation hands it over.** With [Sales Automation](/leads/collect-leads) on, which is the default, the chatbot shows a **Talk to our team** button and switches to live mode when the visitor asks for a person or a custom contract, or writes one of your handoff phrases. The default phrases are "human agent", "custom contract", "менеджер" and "оператор".
+- **You take over.** You can step into any conversation yourself, for example a hot lead.
+
+## Reply as a person
+
+1. Open **Chat History** and select the conversation. Conversations waiting for a person show **🎧 LIVE**.
+2. If the chatbot is still answering, click **Take Over Chat**. The banner changes to **Live Agent Mode Active**: the chatbot is paused and you have control.
+3. Type your reply and press **Enter**, or click **Send Reply**.
+
+The visitor sees your messages as you send them, and the chat header changes to **Live Agent Support**.
+
+<Warning>
+  While a conversation is in live mode, the chatbot doesn't answer at all. If nobody is watching **Chat History**, the visitor waits. CustomerGPT doesn't send email or push notifications for handoffs yet. On the Scale plan and above, a [`conversation.escalated` webhook](/developers/webhooks) can forward each handoff to Slack or your helpdesk through Make, n8n or Zapier.
+</Warning>
+
+## Hand the conversation back
+
+Click **Release Chat to AI**, and the chatbot answers the visitor's next message. The visitor can do the same from their side with the **🤖** button, **Switch to AI Bot**.
+
+## From the CLI
+
+On plans with API access, you can reply from the terminal. The conversation must be in live mode:
+
+```bash
+customergpt messages reply CONVERSATION_ID "Thanks for waiting, I'm checking your order now." --chatbot BOT_ID --yes
+```

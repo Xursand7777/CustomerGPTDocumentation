@@ -3,7 +3,27 @@ title: "Add quick prompts"
 description: "Show suggested questions visitors can click to start a conversation."
 ---
 
-{/* TODO: write this page. Cover:
-  - Writing good quick prompts
-  - How many to show
-*/}
+Quick prompts are buttons with ready-made questions, shown under the welcome message. A visitor clicks one, and it's sent as their first message. They disappear once the conversation starts.
+
+## Add them
+
+1. Select your chatbot and open **Customizer**.
+2. Under **Quick Prompts / Icebreakers**, click **+ Add Prompt** and type the question.
+3. Repeat for each prompt. Click **✕** to remove one.
+
+Changes save as you type. Empty prompts are dropped.
+
+## Write good prompts
+
+- **Use the questions customers actually ask.** Your [knowledge gaps](/knowledge/knowledge-gaps) and **Chat History** show them.
+- **Pick questions your content answers well.** A prompt is a promise: the first answer a visitor sees should be a good one.
+- **Keep them short.** Three or four prompts of a few words each read better than ten long ones.
+- **Add one that leads somewhere**, such as "Book a demo" or "Which plan fits me?", if you use [Sales Automation](/leads/collect-leads).
+
+## From the CLI
+
+On plans with API access, each `--starter` sets one prompt. The CLI and API accept up to 10 prompts of up to 200 characters each:
+
+```bash
+customergpt chatbots update BOT_ID --starter "How much does it cost?" --starter "Do you ship to Canada?" --starter "Book a demo" --yes
+```

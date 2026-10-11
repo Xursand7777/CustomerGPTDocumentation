@@ -1,9 +1,32 @@
 ---
 title: "Book meetings"
-description: "Offer visitors a calendar link when they are ready to talk to sales."
+description: "Let visitors book a meeting with your team inside the chat, through Cal.com."
 ---
 
-{/* TODO: write this page. Cover:
-  - Adding your calendar link
-  - When the chatbot offers it
-*/}
+Connect Cal.com, and visitors who are ready to talk can pick a time and book without leaving the chat. Bookings appear in Cal.com and on the **Meetings** page.
+
+Meeting booking uses **Integrations**, which needs the Growth plan or above.
+
+## Connect Cal.com
+
+1. In Cal.com, go to **Settings → Developer → API Keys** and create a key.
+2. In CustomerGPT, select your chatbot, open **Integrations**, and click **Configure** on **Cal.com Connect**.
+3. Paste the key into **Cal.com API Key (v2)** and click **Fetch Event Types**.
+4. In **Select Meeting Type**, choose the event visitors should book, for example a 30-minute demo.
+5. Click **Save Settings**.
+
+Then make sure **Offer meeting booking** is on in **Sales Automation**. It's on by default.
+
+## What visitors see
+
+When a visitor wants to book a call, or the chatbot offers a meeting as the next step, your Cal.com booking page opens inside the chat with your real-time availability. The visitor picks a slot and books it in Cal.com's form. The chat confirms the booking, and the visitor gets Cal.com's usual confirmation email.
+
+## See your meetings
+
+Open **Meetings** in the sidebar. Filter by **Upcoming**, **Past**, **Cancelled** or **All**. Each booking shows the attendee's email and time zone, with **Join Meeting** and **View on Cal.com** links.
+
+To send bookings to your own systems, use the [`booking.created` webhook](/developers/webhooks) (Scale plan and above).
+
+## Disconnect
+
+In **Integrations**, click **Disconnect** on **Cal.com Connect**. The chatbot stops offering meetings, and visitors who ask to book are told that direct scheduling isn't available.

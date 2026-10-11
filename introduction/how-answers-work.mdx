@@ -20,13 +20,16 @@ The chatbot answers from what you gave it, not from what a language model happen
 
     If you've imported past support conversations, passages from them are treated as examples of how your team answers. The model follows their tone and guidance, but your current content wins when they disagree.
 
-    Replies are kept short, about three sentences when possible.
+    How the reply sounds depends on [Sales Automation](/leads/collect-leads), which is on by default:
+
+    - **On:** the chatbot answers in the visitor's language, then asks one qualification question and, when the visitor is ready, offers a next step: a meeting, your checkout page, or your team.
+    - **Off:** it answers the question and nothing more, in about three sentences when possible.
   </Step>
 </Steps>
 
 ## When your content has no answer
 
-A related page, a keyword match, or your website address alone doesn't count as an answer. If the passages don't contain the facts the visitor asked for, the chatbot says what it can't confirm and suggests contacting your team, instead of guessing.
+A related page, a keyword match, or your website address alone doesn't count as an answer. If the passages don't contain the facts the visitor asked for, the chatbot doesn't guess. It says what it can't confirm, and with Sales Automation off it suggests contacting your team. Either way, visitors can ask for a person with the **🎧** button in the chat header; see [Take over a conversation](/conversations/take-over-a-conversation).
 
 That question is also recorded as a [knowledge gap](/knowledge/knowledge-gaps), so you can see what's missing and add it.
 
@@ -38,5 +41,5 @@ That question is also recorded as a [knowledge gap](/knowledge/knowledge-gaps), 
 
 ## Meetings and sales
 
-- **Meetings.** If you've added a calendar link, the chatbot offers it when a visitor wants to book a call. See [Book meetings](/leads/book-meetings).
-- **Sales Automation.** With Sales Automation turned on, the chatbot can also offer a **Talk to our team** button. See [Collect leads](/leads/collect-leads).
+- **Meetings.** If you've connected Cal.com, the chatbot opens your booking page in the chat when a visitor wants to book a call. See [Book meetings](/leads/book-meetings).
+- **Sales Automation.** With Sales Automation on, the chatbot also collects contact details, scores the lead, and shows a **Talk to our team** button when a visitor asks for a person. See [Collect leads](/leads/collect-leads).
