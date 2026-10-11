@@ -1,11 +1,42 @@
 ---
 title: "How answers work"
-description: "How CustomerGPT finds the right passage in your content and writes an answer grounded in it."
+description: "How CustomerGPT finds the right passage in your content, writes an answer from it, and what it does when your content has no answer."
 ---
 
-{/* TODO: write this page. Cover:
-  - Retrieval: content is split into chunks and searched by meaning
-  - Generation: the model answers only from the retrieved passages, in at most a few sentences
-  - What happens when the answer is not in your content: the bot says what it can't confirm and offers human support, and the question is logged as a knowledge gap
-  - The widget does not show source links today; don't promise citations until it does
-*/}
+The chatbot answers from what you gave it, not from what a language model happens to know. Here is what happens between a visitor's question and the reply.
+
+<Steps>
+  <Step title="Your content becomes searchable passages">
+    When you add a website or a file, its text is split into passages of about 800 characters. Neighboring passages overlap a little, so a sentence isn't cut off from its context. Each passage is indexed by meaning, not just by keywords.
+  </Step>
+  <Step title="Custom responses are checked first">
+    If the question matches one of your [custom responses](/knowledge/custom-responses), the chatbot sends your answer exactly as written and stops here.
+  </Step>
+  <Step title="The closest passages are found">
+    The chatbot looks for the three passages closest in meaning to the question. Passages that aren't close enough are left out, so a loosely related page can't steer the answer.
+  </Step>
+  <Step title="The answer is written from them">
+    The model writes a reply using only those passages and any custom responses with a similar question. The custom responses take priority.
+
+    If you've imported past support conversations, passages from them are treated as examples of how your team answers. The model follows their tone and guidance, but your current content wins when they disagree.
+
+    Replies are kept short, about three sentences when possible.
+  </Step>
+</Steps>
+
+## When your content has no answer
+
+A related page, a keyword match, or your website address alone doesn't count as an answer. If the passages don't contain the facts the visitor asked for, the chatbot says what it can't confirm and suggests contacting your team, instead of guessing.
+
+That question is also recorded as a [knowledge gap](/knowledge/knowledge-gaps), so you can see what's missing and add it.
+
+## What the chatbot won't do
+
+- **Invent facts.** It doesn't make up prices, policies, promises, or contact details that aren't in your content.
+- **Take orders from your content.** Text on your pages is treated as reference material. If a page contains something like "ignore your instructions", the chatbot doesn't follow it.
+- **Link to its sources.** Answers don't include links to the page they came from.
+
+## Meetings and sales
+
+- **Meetings.** If you've added a calendar link, the chatbot offers it when a visitor wants to book a call. See [Book meetings](/leads/book-meetings).
+- **Sales Automation.** With Sales Automation turned on, the chatbot can also offer a **Talk to our team** button. See [Collect leads](/leads/collect-leads).

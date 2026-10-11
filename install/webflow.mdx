@@ -1,9 +1,35 @@
 ---
 title: "Install on Webflow"
-description: "Add the CustomerGPT widget to a Webflow site."
+description: "Add the CustomerGPT chat bubble to a Webflow site."
 ---
 
-{/* TODO: write this page. Cover:
-  - Project settings → Custom code
-  - Publishing the site
-*/}
+Before you start, copy the **HTML Script** code from **Customizer → Get Embed Code**. See [Add the chatbot to your website](/install/add-to-your-website).
+
+## Add it to every page
+
+1. In Webflow, open your site's **Site settings** and go to the **Custom code** tab.
+2. Paste the embed code into **Footer code**.
+3. Click **Save changes**.
+4. **Publish** the site.
+
+Custom code runs only on the published site, not in the Designer. Open the published site to check that the bubble appears in the bottom-right corner.
+
+<Note>
+  Webflow runs custom code only on sites with a paid site plan. If the **Custom code** fields are locked, that's why.
+</Note>
+
+## Add it to one page only
+
+Open the page's settings in the Designer, paste the code into the **Before `</body>` tag** field under **Custom code**, then save and publish.
+
+## Your webflow.io address
+
+The widget loads only on the domain you entered as **Website Domain Link**. If that's your custom domain, the bubble won't appear on `your-site.webflow.io`, because that's a different domain. Test on the custom domain. See [Where the widget is allowed to load](/install/add-to-your-website#where-the-widget-is-allowed-to-load).
+
+## Train the chatbot on your Webflow content
+
+Crawl your site from **Knowledge Base**, as described in [Add your website](/knowledge/add-your-website). If the sitemap is turned on in your Webflow SEO settings, it's at `/sitemap.xml`, and you can train on the pages it lists with the CLI:
+
+```bash
+customergpt knowledge sitemap add https://acme.com/sitemap.xml --chatbot BOT_ID --max-pages 20 --yes --wait
+```

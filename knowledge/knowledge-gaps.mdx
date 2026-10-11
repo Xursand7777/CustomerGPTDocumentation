@@ -1,9 +1,38 @@
 ---
 title: "Fill knowledge gaps"
-description: "See the questions your chatbot could not answer and add the missing content."
+description: "See the questions your chatbot couldn't answer, and add the missing answer in one step."
 ---
 
-{/* TODO: write this page. Cover:
-  - Where knowledge gaps come from
-  - Answering a gap with a custom response or a new source
-*/}
+When your content can't answer a visitor's question, the chatbot says so instead of guessing, and the question is recorded. The **Knowledge gaps** report groups those questions so you can see what's missing and fix it.
+
+## Open the report
+
+Select your chatbot and click **Dashboard** in the sidebar. **Knowledge gaps** is on that page.
+
+Narrow the list with **Period** (last 7, 30, or 90 days, or the last year), **Status**, and **Search questions**, then click **Apply**. The report shows:
+
+- **Assessed questions**: the questions checked in that period.
+- **Without an answer**: how many of them your content couldn't answer.
+- **Gap rate**: the share without an answer.
+- **Open topics**: the distinct unanswered questions from that period that are still open.
+
+Greetings, historical chats, questions a person handled, and technical failures aren't counted. Repeats of the same question are grouped, ignoring punctuation and capital letters.
+
+## Fix a gap
+
+Click a question to open it. **Latest examples** shows recent times it was asked, each with a reason:
+
+- **No relevant source found**: nothing in your content is about this.
+- **Related content has no answer**: a page is about the topic but doesn't say the answer.
+
+Click **Open conversation** to read a whole chat. Then choose what to do:
+
+- **Add the answer.** Under **Add an answer to the knowledge base**, write your actual policy or instructions in **Your answer** and click **Add answer to knowledge base**. CustomerGPT adds it to the knowledge base as a text source and marks the gap resolved. Later questions on this topic are answered from it.
+- **Mark resolved** if you fixed it another way, for example by updating a page and [re-syncing it](/knowledge/keep-content-up-to-date).
+- **Ignore** questions you don't intend to answer, such as off-topic ones. **Reopen** brings a question back.
+
+Only workspace administrators can add answers and change a question's status.
+
+<Tip>
+  An answer added here is knowledge the chatbot writes from, in its own words. If you need your exact wording every time, add a [custom response](/knowledge/custom-responses) instead.
+</Tip>

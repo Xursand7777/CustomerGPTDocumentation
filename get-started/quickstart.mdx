@@ -31,19 +31,15 @@ You need:
   <Step title="Train it on your website">
     A new chatbot doesn't know anything yet. Open **Knowledge Base** in the sidebar.
 
-    Under **Crawl Website Links**, paste a page from your site and click **Crawl Link**. The crawler starts from that page and follows links on your domain. Leave **Remove headers, footers, sidebars, and navigation links** checked, so menus and page chrome stay out of the answers.
+    Under **Crawl Website Links**, paste your home page, or the section you want, and click **Crawl Link**. The crawler opens pages in a real browser and follows links under that address, up to 50 pages. Leave **Remove headers, footers, sidebars, and navigation links** checked, so menus and page chrome stay out of the answers.
 
-    To add documents, drag PDF or TXT files (up to 10 MB each) onto the upload area, or click **Browse Files**.
+    To add documents, drag a TXT, MD or CSV file (up to 10 MB) onto the upload area. For PDF and DOCX files, see [Upload files](/knowledge/upload-files).
 
     Each source appears under **Trained Knowledge Sources**. Wait until it shows **completed** before you test.
 
     <Tip>
-      Start with the pages customers ask about most: pricing, FAQ, shipping and returns, getting started. You can add more at any time.
+      Start with the pages customers ask about most: pricing, FAQ, shipping and returns, getting started. You can add more at any time. See [Add your website](/knowledge/add-your-website) for crawling a larger site.
     </Tip>
-
-    <Note>
-      The crawler reads the HTML your server sends and doesn't run JavaScript. If a page builds its text in the browser, the crawl comes back with little or nothing. Upload that content as a file instead.
-    </Note>
   </Step>
 
   <Step title="Make it yours">
@@ -118,7 +114,7 @@ You need:
 ## Prefer the terminal?
 
 <Accordion title="Do the same steps with the CLI">
-  The CLI needs Node.js 20 or later and a plan with API access.
+  The CLI needs Node.js 20 or later and a plan with API access (Growth and above).
 
   ```bash
   npm install -g @customergpt/cli

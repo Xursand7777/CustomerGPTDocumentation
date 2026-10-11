@@ -1,11 +1,110 @@
 ---
 title: "Add the chatbot to your website"
-description: "Paste one script tag to show the chat widget on any site."
+description: "Paste one script tag to show the chat bubble on your site, and fix it when it doesn't appear."
 ---
 
-{/* TODO: write this page. Cover:
-  - Copy the embed snippet from the dashboard
-  - Where to paste it (before </body>)
-  - Single-page apps
-  - Checking that the widget loads
-*/}
+The chatbot runs in a small window that one script adds to your page. Copy the script from the dashboard, paste it into your site once, and the chat bubble appears on every page that includes it.
+
+## Copy the embed code
+
+1. In **My Chatbots**, click your chatbot. The dashboard selects it and opens **Customizer**.
+2. Scroll to **Get Embed Code**.
+3. Choose a tab and click **Copy Code**.
+
+| Tab | Use it when |
+| --- | --- |
+| **HTML Script** | You want the chat bubble in the corner of every page. Start here. |
+| **Lazy HTML** | Same bubble, but it loads only after the page has finished loading. Use it if page speed scores matter to you. |
+| **Next.js Script** | Your site is a Next.js app. |
+| **IFrame** | You want the chat panel inside a section of one page instead of a floating bubble. |
+
+## HTML script
+
+```html
+<script src="https://widget.customergpt.ai/embed.js" data-widget-id="YOUR_WIDGET_ID" defer></script>
+```
+
+Paste it just before the closing `</body>` tag on every page where the chat should appear. If your site has a shared footer or layout template, paste it there once.
+
+The script adds a chat bubble 20 px from the bottom-right corner, on top of your page's content. Clicking it opens a chat panel about 380 × 640 px. If the tag appears twice on a page, the second copy does nothing. The position of the bubble can't be changed yet.
+
+### Script options
+
+| Attribute | What it does |
+| --- | --- |
+| `data-widget-id` | Required. Your chatbot's Widget ID. |
+| `data-lazy="true"` | Loads the widget after the page has loaded and the browser is idle. This is what **Lazy HTML** adds. |
+| `data-delay="3000"` | Loads the widget this many milliseconds after the page has loaded. |
+
+## Next.js
+
+```jsx
+import Script from "next/script";
+
+// In app/layout.tsx (App Router) or pages/_app.tsx (Pages Router)
+<Script
+  src="https://widget.customergpt.ai/embed.js"
+  data-widget-id="YOUR_WIDGET_ID"
+  strategy="afterInteractive"
+/>
+```
+
+Put it in the root layout so it loads once for the whole app. The widget notices client-side route changes on its own.
+
+## IFrame
+
+```html
+<iframe
+  src="https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID"
+  title="CustomerGPT Support Assistant"
+  frameborder="0"
+  scrolling="no"
+  style="width: 100%; height: 100%; background: transparent !important; color-scheme: none;"
+  allow="clipboard-write">
+</iframe>
+```
+
+The iframe fills its container, so give the container a height, for example `height: 640px`.
+
+## Where the widget is allowed to load
+
+<Warning>
+  The widget works only on the domain you entered as **Website Domain Link** when you created the chatbot, and on its subdomains. On any other site, the chat panel shows **Embedding not allowed on this origin.**
+</Warning>
+
+- With `https://acme.com`, the widget works on `acme.com`, `www.acme.com`, and `help.acme.com`.
+- With `https://www.acme.com`, it works on `www.acme.com` but not on `acme.com`. If your site answers on both, enter the domain without `www`.
+- It always works on `localhost` and `127.0.0.1`, so you can test before you publish.
+
+The dashboard has no field for changing the domain yet. With the CLI (plans with API access), run:
+
+```bash
+customergpt chatbots update BOT_ID --url https://acme.com --yes
+```
+
+On other plans, email [support@customergpt.ai](mailto:support@customergpt.ai).
+
+## Content Security Policy
+
+If your site sends a `Content-Security-Policy` header, add the widget's origin to two directives, next to the sources you already allow:
+
+```text
+script-src https://widget.customergpt.ai;
+frame-src https://widget.customergpt.ai;
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The bubble doesn't appear">
+    - Open your published page, view its source, and search for `embed.js`. Site builders often need you to publish again after you add code.
+    - Open the browser console. `CustomerGPT: Missing data-widget-id attribute on script tag.` means the attribute was lost, often because a plugin rewrote or combined your scripts. Exclude `widget.customergpt.ai/embed.js` from that plugin.
+    - An error that mentions Content Security Policy means your CSP blocks the widget. See [Content Security Policy](#content-security-policy).
+  </Accordion>
+  <Accordion title="The panel says Embedding not allowed on this origin">
+    The page's domain doesn't match the chatbot's **Website Domain Link**. See [Where the widget is allowed to load](#where-the-widget-is-allowed-to-load).
+  </Accordion>
+  <Accordion title="The bot greets visitors with “Hello! I am CustomerGPT” instead of my welcome message">
+    The widget couldn't load your chatbot's settings, usually because the Widget ID in the code is wrong. Copy the code again from **Customizer**.
+  </Accordion>
+</AccordionGroup>
