@@ -1,53 +1,196 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "CustomerGPT",
+  "description": "Guides and API reference for CustomerGPT, the AI customer support chatbot trained on your own content.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#224CFF",
+    "light": "#6B8BFF",
+    "dark": "#1A3BD9"
   },
   "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://customergpt.ai"
+  },
   "navigation": {
-    "pages": [
+    "tabs": [
       {
-        "group": "Getting Started",
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "introduction/what-is-customergpt",
+              "introduction/how-answers-work"
+            ]
+          },
+          {
+            "group": "Get started",
+            "pages": [
+              "get-started/quickstart",
+              "get-started/your-first-week"
+            ]
+          },
+          {
+            "group": "Train your chatbot",
+            "pages": [
+              "knowledge/add-your-website",
+              "knowledge/upload-files",
+              "knowledge/add-text",
+              "knowledge/connect-cloud-storage",
+              "knowledge/keep-content-up-to-date",
+              "knowledge/custom-responses",
+              "knowledge/knowledge-gaps"
+            ]
+          },
+          {
+            "group": "Customize",
+            "pages": [
+              "customize/widget-appearance",
+              "customize/quick-prompts",
+              "customize/rate-limits"
+            ]
+          },
+          {
+            "group": "Install",
+            "pages": [
+              "install/add-to-your-website",
+              "install/wordpress",
+              "install/webflow"
+            ]
+          },
+          {
+            "group": "Conversations",
+            "pages": [
+              "conversations/review-conversations",
+              "conversations/take-over-a-conversation",
+              "conversations/improve-answers-from-conversations"
+            ]
+          },
+          {
+            "group": "Leads and sales",
+            "pages": [
+              "leads/collect-leads",
+              "leads/book-meetings",
+              "leads/analytics"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "account/plans-and-billing",
+              "account/team-members"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/slack",
+              "integrations/telegram",
+              "integrations/zapier",
+              "integrations/hubspot"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Developers",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "developers/overview",
+              "developers/webhooks"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/errors",
+              {
+                "group": "Actions",
+                "pages": [
+                  "api-reference/actions/list",
+                  "api-reference/actions/call"
+                ]
+              },
+              {
+                "group": "Chatbots",
+                "pages": [
+                  "api-reference/chatbots/list",
+                  "api-reference/chatbots/get",
+                  "api-reference/chatbots/create",
+                  "api-reference/chatbots/update"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "developers/sdk",
+              "cli/overview",
+              "cli/commands",
+              "developers/mcp"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
         "pages": [
-          "index",
-          "quickstart"
+          "changelog"
         ]
       }
     ],
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Website",
+          "href": "https://customergpt.ai",
+          "icon": "globe"
         },
         {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://customergpt.ai/blog",
           "icon": "newspaper"
         }
       ]
     }
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@mintlify.com"
+        "href": "mailto:support@customergpt.ai"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "href": "https://dashboard.customergpt.ai"
+    }
+  },
+  "api": {
+    "mdx": {
+      "server": "https://api.customergpt.ai/api",
+      "auth": {
+        "method": "key",
+        "name": "X-Api-Key"
+      }
+    },
+    "playground": {
+      "display": "interactive"
     }
   },
   "contextual": {
@@ -64,9 +207,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/Customergptai",
+      "linkedin": "https://www.linkedin.com/company/customergpt-ai/"
     }
   }
 }
