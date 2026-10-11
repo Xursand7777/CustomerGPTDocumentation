@@ -1,46 +1,43 @@
 ---
 title: "Upload files"
-description: "Train your chatbot on documents: text files in the dashboard, PDF and DOCX after a quick conversion or with the CLI."
+description: "Train your chatbot on PDF, Word, text, Markdown and CSV files from the dashboard or the CLI."
 ---
 
 | Format | Dashboard | CLI |
 | --- | --- | --- |
-| `.txt` | Yes | Yes |
-| `.md`, `.csv` | Yes, by drag and drop | Yes |
-| `.pdf`, `.docx` | Convert first, see below | Yes |
+| `.pdf` | Yes | Yes |
+| `.docx` | Yes | Yes |
+| `.txt`, `.md`, `.csv` | Yes | Yes |
 
-Files can be up to 10 MB each.
+Files can be up to 10 MB each. Save older `.doc` files and presentations as `.docx` or PDF first.
 
 ## Upload in the dashboard
 
 1. Select your chatbot and open **Knowledge Base**.
 2. Drag a file onto the upload area, or click **Browse Files**. Upload one file at a time.
-3. The file appears under **Trained Knowledge Sources**. Text files are ready as soon as they show **completed**.
+3. Wait while the dashboard reads the text and trains your chatbot on it. Large files can take a minute.
+4. The file appears under **Trained Knowledge Sources** as **completed**, and the chatbot can answer from it right away.
 
-<Warning>
-  Don't upload PDF or DOCX files in the dashboard for now: it doesn't extract their text yet, so the chatbot doesn't learn your document. Use one of the options below.
+If a file can't be used, the dashboard tells you why and adds nothing:
 
-  If you already uploaded a PDF there, delete that source with `customergpt knowledge documents delete`, or ask [support@customergpt.ai](mailto:support@customergpt.ai) to remove it.
-</Warning>
+- **No text found in the PDF**: the PDF is a scan. Run it through OCR, then upload it again.
+- **That PDF could not be read**: the PDF is password-protected. Remove the password, then upload it again.
+- **File too large**: the file is over 10 MB. Split it into parts.
+- **Data Ingestion blocked**: the file would take you over your plan's page limit. See [How much you can train](/knowledge/add-your-website#how-much-you-can-train).
 
-## PDF and DOCX files
+<Note>
+  Before October 2026, the dashboard didn't read PDF files and trained on a placeholder instead of your document. If you uploaded a PDF in the dashboard before then, upload it again. We're removing the old placeholder sources, so you don't need to delete them yourself.
+</Note>
 
-<Tabs>
-  <Tab title="Convert, then upload (any plan)">
-    1. Open the free [PDF to Markdown](https://customergpt.ai/tools/pdf-to-markdown) or [DOCX to Markdown](https://customergpt.ai/tools/docx-to-markdown) converter.
-    2. Upload your file, click **Convert to Markdown**, and download the result as a `.md` file.
-    3. Drag the `.md` file onto the upload area in **Knowledge Base**.
-  </Tab>
-  <Tab title="CLI (Growth and above)">
-    The server extracts the text for you:
+## Upload with the CLI
 
-    ```bash
-    customergpt knowledge files add ./handbook.pdf --chatbot BOT_ID --yes --wait
-    ```
+The CLI needs a plan with API access (Growth and above):
 
-    Each file trains on up to 50,000 characters, and the CLI warns you if it cut anything off. Split longer documents into parts.
-  </Tab>
-</Tabs>
+```bash
+customergpt knowledge files add ./handbook.pdf --chatbot BOT_ID --yes --wait
+```
+
+Each file trains on up to 50,000 characters through the CLI, and the CLI warns you if it cut anything off. Split longer documents into parts, or upload them in the dashboard.
 
 ## What gets read
 
