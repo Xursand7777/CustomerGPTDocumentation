@@ -1,11 +1,60 @@
 ---
 title: "Add your website"
-description: "Train your chatbot on a whole site, a sitemap, or a list of pages."
+description: "Train your chatbot on your site: crawl it from the dashboard, or pick exact pages and sitemaps with the CLI."
 ---
 
-{/* TODO: write this page. Cover:
-  - Crawl from a start URL
-  - Use a sitemap
-  - Add exact pages only (up to 20, no link following)
-  - How long training takes and how to check its status
-*/}
+## Crawl from the dashboard
+
+1. Select your chatbot and open **Knowledge Base** in the sidebar.
+2. Under **Crawl Website Links**, paste a URL and click **Crawl Link**.
+3. The source appears under **Trained Knowledge Sources** as **Syncing**. Wait until it shows **completed**.
+
+How the crawl works:
+
+- **It runs JavaScript.** The crawler opens your pages in a real browser, so text rendered by JavaScript is included.
+- **It follows links under the URL you enter.** Start at `https://acme.com/help` and it reads `/help/...` pages but not `/blog`. Start at your home page to cover the whole site.
+- **It reads up to 50 pages per crawl.** For a larger site, crawl each section separately, for example `/help`, then `/docs`.
+- **It strips page chrome.** **Remove headers, footers, sidebars, and navigation links** is on by default. It drops `nav`, `header`, `footer` and `aside` elements, and elements with the class `sidebar`, `header` or `footer`, so menus don't end up in answers. Turn it off if important facts live there, such as an address or phone number in the footer.
+
+<Warning>
+  Crawling the same URL again adds a second copy of those pages instead of updating the first. To refresh a site you've already added, see [Keep your content up to date](/knowledge/keep-content-up-to-date).
+</Warning>
+
+## Pick exact pages or a sitemap with the CLI
+
+The CLI gives you more control over which pages are used. It needs a plan with API access (Growth and above).
+
+```bash
+# Only these pages (up to 20), without following links
+customergpt knowledge links add https://acme.com/pricing https://acme.com/faq --chatbot BOT_ID --yes --wait
+
+# The pages listed in your sitemap (same site only; sitemap indexes are followed)
+customergpt knowledge sitemap add https://acme.com/sitemap.xml --chatbot BOT_ID --max-pages 20 --yes --wait
+
+# A crawl from a start page: 5 pages by default, up to 20
+customergpt knowledge website add https://acme.com --chatbot BOT_ID --max-pages 20 --yes --wait
+```
+
+The CLI crawler works differently from the dashboard's:
+
+- It reads the HTML your server returns and doesn't run JavaScript.
+- Each job trains on up to 50,000 characters. The CLI warns you about anything it skipped or cut off.
+- Compressed `sitemap.xml.gz` files aren't supported.
+
+## How much you can train
+
+Your plan limits the total text across all your chatbots, counted in pages of 2,500 characters each:
+
+| Plan | Pages |
+| --- | --- |
+| Starter | 1,000 |
+| Growth | 10,000 |
+| Scale | 50,000 |
+
+See [pricing](https://customergpt.ai/pricing) for the full plan comparison.
+
+## What makes a good source
+
+- **Pages that answer questions.** Pricing, FAQ, shipping and returns, and getting-started guides do more than marketing pages.
+- **One fact in one place.** If two pages give different refund windows, the chatbot may quote either. Keep prices, dates, and policies on one page and link to it.
+- **Facts written as text.** The crawler reads text. A price that only appears in an image never reaches the chatbot.

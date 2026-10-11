@@ -1,9 +1,41 @@
 ---
 title: "Install on WordPress"
-description: "Add the CustomerGPT widget to a WordPress site."
+description: "Add the CustomerGPT chat bubble to a WordPress or WooCommerce site."
 ---
 
-{/* TODO: write this page. Cover:
-  - Install steps
-  - Showing the widget on selected pages only
-*/}
+There is no CustomerGPT plugin to install. You add the embed code to your site's footer once, and the chat bubble appears on every page.
+
+Before you start, copy the **HTML Script** code from **Customizer → Get Embed Code**. See [Add the chatbot to your website](/install/add-to-your-website).
+
+<Tabs>
+  <Tab title="WPCode plugin (recommended)">
+    Works with every theme, including block themes, and survives theme updates.
+
+    1. In your WordPress admin, go to **Plugins → Add New**, search for **WPCode**, then install and activate it.
+    2. Go to **Code Snippets → Header & Footer**.
+    3. Paste the embed code into the **Footer** box and click **Save Changes**.
+  </Tab>
+  <Tab title="Theme file">
+    Only for classic themes; block themes have no `footer.php`. A theme update overwrites this file, so make the change in a child theme.
+
+    1. Go to **Appearance → Theme File Editor** and open `footer.php`.
+    2. Paste the embed code just before `<?php wp_footer(); ?>`.
+    3. Click **Update File**.
+  </Tab>
+</Tabs>
+
+Open your site in a private window and check that the bubble appears in the bottom-right corner.
+
+## If the bubble doesn't appear
+
+- **Caching plugins:** if you use WP Rocket, LiteSpeed Cache, W3 Total Cache or similar, clear the cache after saving.
+- **Script optimization:** if the bubble still doesn't appear, exclude `widget.customergpt.ai/embed.js` from the plugin's settings that combine or minify JavaScript. Delaying JavaScript is fine.
+- **Domain:** WordPress sites often redirect between `www` and the bare domain. Make sure the chatbot's **Website Domain Link** covers the address your visitors see. See [Where the widget is allowed to load](/install/add-to-your-website#where-the-widget-is-allowed-to-load).
+
+## Train the chatbot on your WordPress content
+
+Crawl your site from **Knowledge Base**, as described in [Add your website](/knowledge/add-your-website). WordPress publishes a sitemap at `/wp-sitemap.xml`, or at `/sitemap_index.xml` if you use Yoast SEO. With the CLI, you can train on the pages it lists:
+
+```bash
+customergpt knowledge sitemap add https://acme.com/wp-sitemap.xml --chatbot BOT_ID --max-pages 20 --yes --wait
+```

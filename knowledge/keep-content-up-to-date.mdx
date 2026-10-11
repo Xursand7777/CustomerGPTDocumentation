@@ -1,10 +1,46 @@
 ---
 title: "Keep your content up to date"
-description: "Re-sync sources so the chatbot answers from your latest content."
+description: "Re-train on pages that changed, and remove sources the chatbot should stop using."
 ---
 
-{/* TODO: write this page. Cover:
-  - Manual re-sync
-  - What changes when a source is re-synced
-  - Removing outdated sources
-*/}
+CustomerGPT doesn't re-crawl your site on a schedule. When you change a page, re-sync the source that contains it.
+
+| Task | Dashboard | CLI (Growth and above) |
+| --- | --- | --- |
+| See sources and their status | **Knowledge Base** | `knowledge documents list` |
+| Re-sync a website, page list, or sitemap | Not available yet | `knowledge documents resync` |
+| Delete a source | Not available yet | `knowledge documents delete` |
+
+On plans without API access, email [support@customergpt.ai](mailto:support@customergpt.ai) to re-sync or remove a source.
+
+## Find the source ID
+
+```bash
+customergpt knowledge documents list --chatbot BOT_ID
+```
+
+## Re-sync a website, page list, or sitemap
+
+```bash
+customergpt knowledge documents resync SOURCE_ID --chatbot BOT_ID --yes --wait
+```
+
+- A re-sync repeats the source the way it was added: the same list of pages, or the same sitemap.
+- The old content keeps answering until the new crawl succeeds, so visitors never meet an empty chatbot.
+- Only website, page-list and sitemap sources can be re-synced. For files and text, delete the source and add the new version.
+
+<Warning>
+  A site you crawled in the dashboard is re-synced with the CLI crawler, which reads 5 pages by default and 20 at most (`--max-pages 20`) and doesn't run JavaScript. If the original crawl covered more pages, delete the source and crawl it again in the dashboard instead.
+</Warning>
+
+## Delete a source
+
+```bash
+customergpt knowledge documents delete SOURCE_ID --chatbot BOT_ID --yes
+```
+
+The chatbot stops using that content right away.
+
+## Fix one answer now
+
+You don't have to re-sync to correct a single wrong answer. Add a [custom response](/knowledge/custom-responses) with the right wording, and it takes effect on the next question.

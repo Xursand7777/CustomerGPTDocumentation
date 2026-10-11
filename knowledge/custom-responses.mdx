@@ -1,10 +1,42 @@
 ---
 title: "Add custom responses"
-description: "Give an exact answer to a specific question, overriding what the model would write."
+description: "Give an exact answer to a specific question, in your own words, ahead of anything the model would write."
 ---
 
-{/* TODO: write this page. Cover:
-  - When to use a custom response
-  - Creating, editing and deleting responses
-  - How custom responses rank against your content
-*/}
+A custom response is a question and the answer you want given for it. Use one when the wording matters, such as a legal statement or a pricing exception, or to fix a wrong answer right away.
+
+## How the chatbot uses them
+
+- **Same question.** If a visitor's message matches a custom response's question, ignoring capital letters and punctuation, the chatbot sends your answer exactly as written.
+- **Similar question.** If the message shares most of its words with one or more custom responses, the chatbot receives up to three of them as priority answers. It answers from them and never contradicts them.
+- **Anything else** is answered from your content as usual. See [How answers work](/introduction/how-answers-work).
+
+## Manage custom responses with the CLI
+
+Custom responses are managed with the CLI or the API, which need a plan with API access (Growth and above). The dashboard doesn't have them yet.
+
+```bash
+# Add one
+customergpt knowledge responses add --chatbot BOT_ID --question "Do you ship to Canada?" --answer "Yes. Orders to Canada arrive in 5–8 business days." --yes
+
+# List them, with their IDs
+customergpt knowledge responses list --chatbot BOT_ID
+
+# Change the question or the answer
+customergpt knowledge responses update RESPONSE_ID --chatbot BOT_ID --answer "Yes. Orders to Canada arrive in 4–6 business days." --yes
+
+# Delete one: check with --dry-run, then run again with --yes
+customergpt knowledge responses delete RESPONSE_ID --chatbot BOT_ID --dry-run
+```
+
+## Limits
+
+- Up to 200 custom responses per chatbot.
+- Questions up to 500 characters; answers up to 4,000 characters.
+- Each question can exist only once per chatbot.
+
+## Writing good custom responses
+
+- **Write the question the way customers ask it.** Similar wordings are matched too, so you don't need a response for every variant.
+- **Make the answer complete on its own.** Visitors who get it may not have read anything else.
+- **Keep facts in one place.** If the answer repeats a price or a policy that's also on your site, update both when it changes.
