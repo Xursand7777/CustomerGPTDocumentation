@@ -1,9 +1,41 @@
 ---
 title: "Connect Zapier"
-description: "Send leads and conversations to thousands of apps through Zapier."
+description: "Send leads, handoffs, bookings and messages from CustomerGPT to thousands of apps with Zapier."
 ---
 
-{/* TODO: write this page. Cover:
-  - Available triggers and actions
-  - Example zaps
-*/}
+CustomerGPT connects to Zapier through [webhooks](/developers/webhooks). There's no CustomerGPT app to install in Zapier: you use Zapier's built-in **Webhooks by Zapier**. Webhooks are available on the Scale plan and above.
+
+## Send events to a Zap
+
+1. In Zapier, create a Zap. For the trigger, choose **Webhooks by Zapier** and the event **Catch Hook**.
+2. Copy the webhook URL Zapier gives you.
+3. In CustomerGPT, select your chatbot and open **Sales Automation**. Under **External integration (Webhook)**, paste the URL into **Destination webhook URL** and click **Save integration**.
+4. Make something happen so Zapier receives a sample. For example, open your widget's test page, `https://widget.customergpt.ai/?widgetId=YOUR_WIDGET_ID`, and send a message.
+5. In Zapier, click **Test trigger** and pick the sample.
+
+## Only react to the events you want
+
+CustomerGPT sends four events to the same URL. The event name is in the `event` field:
+
+| `event` | Sent when |
+| --- | --- |
+| `lead.captured` | A visitor leaves an email or phone number, with Sales Automation on |
+| `conversation.escalated` | A conversation is handed to your team |
+| `booking.created` | A visitor books a meeting in the chat |
+| `message.created` | The visitor sends a message, or the chatbot replies |
+
+Add a **Filter by Zapier** step right after the trigger, such as **Event** exactly matches `lead.captured`, so the rest of the Zap runs only for that event. See [Webhooks](/developers/webhooks#payload-by-event) for every field each event carries.
+
+## Example Zaps
+
+- **New leads to a spreadsheet.** Filter on `lead.captured`, then add a row to Google Sheets with `payload.visitorEmail`, `payload.visitorPhone`, and the answers in `payload.salesProfile.fields`.
+- **Handoffs to your team chat.** Filter on `conversation.escalated`, then post to a Slack channel. Include `payload.conversationId` so someone can find the conversation in **Chat History**.
+- **Bookings to your CRM.** Filter on `booking.created`, then create a deal from `payload.attendeeEmail` and `payload.startTime`.
+
+<Tip>
+  `message.created` fires twice per exchange, once for the visitor and once for the chatbot. Skip it unless you really need every message: it can use up your Zapier tasks quickly.
+</Tip>
+
+## From Zapier to CustomerGPT
+
+To have a Zap change something in CustomerGPT, such as adding a custom response from a form, add a **Webhooks by Zapier → POST** action that calls the [Actions API](/api-reference/introduction). Send your [API key](/api-reference/authentication) in the `X-Api-Key` header and `"confirm": true` in the body. This needs a plan with API access.

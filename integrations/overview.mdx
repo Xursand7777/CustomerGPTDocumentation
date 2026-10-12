@@ -1,23 +1,47 @@
 ---
 title: "Integrations overview"
-description: "Connect CustomerGPT to the channels where your customers talk and the tools where your team works."
+description: "Connect CustomerGPT to the channels where your customers talk, the tools that hold your knowledge, and the systems where your team works."
 ---
 
+Most integrations are set up on the **Integrations** page of the dashboard, which is available on the Growth plan and above.
+
+## Channels
+
 <CardGroup cols={2}>
+  <Card title="Website" icon="globe" href="/install/add-to-your-website">
+    The chat bubble on your site, on any plan.
+  </Card>
   <Card title="Slack" icon="slack" href="/integrations/slack">
-    Answer questions in Slack channels and threads.
+    Answer direct messages and @mentions in your Slack workspace.
   </Card>
   <Card title="Telegram" icon="telegram" href="/integrations/telegram">
     Run your chatbot as a Telegram bot.
   </Card>
-  <Card title="Zapier" icon="bolt" href="/integrations/zapier">
-    Send leads and conversations to thousands of apps.
-  </Card>
-  <Card title="HubSpot" icon="hubspot" href="/integrations/hubspot">
-    Create and update HubSpot contacts from your leads.
+</CardGroup>
+
+## Knowledge sources
+
+<CardGroup cols={2}>
+  <Card title="Cloud storage and help centers" icon="cloud" href="/knowledge/connect-cloud-storage">
+    Train on files from Google Drive, OneDrive and SharePoint, pages from Notion, and articles from Zendesk and Intercom.
   </Card>
 </CardGroup>
 
-To put the chatbot on your site, see [Add the chatbot to your website](/install/add-to-your-website), [WordPress](/install/wordpress), and [Webflow](/install/webflow).
+## Sales and automation
 
-{/* TODO: add Shopify, Zendesk, and WhatsApp when they ship (they are "Incoming" on customergpt.ai/integrations). */}
+<CardGroup cols={2}>
+  <Card title="HubSpot" icon="hubspot" href="/integrations/hubspot">
+    Create and update HubSpot contacts from the leads your chatbot collects.
+  </Card>
+  <Card title="Cal.com" icon="calendar" href="/leads/book-meetings">
+    Let visitors book a meeting inside the chat.
+  </Card>
+  <Card title="Zapier" icon="bolt" href="/integrations/zapier">
+    Send leads, handoffs, bookings and messages to thousands of apps.
+  </Card>
+  <Card title="Webhooks" icon="code" href="/developers/webhooks">
+    The same events, sent straight to your own endpoint.
+  </Card>
+</CardGroup>
+
+To build your own integration, see the [developer overview](/developers/overview).

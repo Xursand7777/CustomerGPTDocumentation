@@ -3,9 +3,25 @@ title: "Changelog"
 description: "New features, improvements, and fixes in CustomerGPT."
 ---
 
-{/* Add the newest entry at the top. Each release is one <Update>:
+{/* Add the newest entry at the top. Each release is one <Update>. */}
 
-<Update label="2026-10-11" description="Short headline">
-  - What changed, from the user's point of view
+<Update label="October 11, 2026" description="Documents are read properly everywhere">
+  - **PDF and Word uploads in the dashboard** are now read and trained on. Before this fix, a PDF uploaded in the dashboard trained the chatbot on placeholder text instead of your document. If you uploaded PDFs before October 11, [upload them again](/knowledge/upload-files).
+  - **Cloud storage** syncs from Google Drive, OneDrive and SharePoint now read the text of PDF and Word files, too. See [Connect cloud storage](/knowledge/connect-cloud-storage).
+  - **Cloud storage** syncs now respect your plan's content limit before training.
+  - **Phone numbers** typed with spaces, dashes or brackets, such as `+1 555 123 4567`, are now recognized and saved to the conversation's contact details.
 </Update>
-*/}
+
+<Update label="October 10, 2026" description="Chatbot management and HubSpot">
+  - **Delete a chatbot** from its card in **My Chatbots**. The dashboard shows what will be removed before you confirm.
+  - **The full Widget ID** is shown on each chatbot's card, with a **Copy** button.
+  - **HubSpot** contacts are created or updated by email, and the **Integrations** page shows which HubSpot portal you're connected to. See [Connect HubSpot](/integrations/hubspot).
+</Update>
+
+<Update label="October 5, 2026" description="More for developers and AI agents">
+  - **Custom responses**: give an exact answer to a specific question. See [Add custom responses](/knowledge/custom-responses).
+  - **API, CLI and MCP** can now reply to visitors, tag and bulk-update conversations, wait for training to finish, change Sales Automation settings, and manage API keys and team members. See the [developer overview](/developers/overview).
+  - **Request IDs** are returned with every API error, so support can find a failed request.
+  - **The CLI agent skill** teaches AI coding agents to build a support bot with the CLI.
+  - **Security:** tighter checks on who can open a chatbot's data in the dashboard and in cloud sync, and on account recovery.
+</Update>

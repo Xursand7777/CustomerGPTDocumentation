@@ -3,9 +3,42 @@ title: "Connect HubSpot"
 description: "Create and update HubSpot contacts from the leads your chatbot collects."
 ---
 
-{/* TODO: write this page. Cover:
-  - Connect your HubSpot account (OAuth)
-  - How leads are matched by email
-  - Field mapping
-  - Disconnecting
-*/}
+When a visitor leaves an email address in a conversation, CustomerGPT can create a contact in HubSpot, or update the existing one, with what the chatbot learned. It works together with [Sales Automation](/leads/collect-leads).
+
+HubSpot is set up on the **Integrations** page, available on the Growth plan and above.
+
+## Connect your HubSpot account
+
+1. Select your chatbot, open **Integrations**, and click **🔌 Connect Account** on **HubSpot CRM**.
+2. Sign in to HubSpot, choose the account (portal) to connect, and approve access.
+3. Back in CustomerGPT, the card shows **Connected**, with the portal's ID and name.
+
+## Turn on lead delivery
+
+1. Open **Sales Automation**.
+2. Turn on **Send contacts and qualification summaries to HubSpot**.
+3. Click **Save sales settings**.
+
+## What gets sent
+
+CustomerGPT creates or updates the contact matched by email address, so a visitor who chats twice doesn't become two contacts.
+
+| HubSpot property | From |
+| --- | --- |
+| `email` | The email the visitor typed. Required: without an email, nothing is sent. |
+| `phone` | The phone number the visitor typed, if any. |
+| `firstname`, `lastname` | The visitor's name, if they gave it. |
+| `company` | The answer to the `company` qualification question, if any. |
+| `message` | A summary of the visitor's answers to your qualification questions. |
+
+The contact is updated as the conversation goes on and the chatbot learns more.
+
+## Check deliveries
+
+**Sales Automation → Recent deliveries** lists each delivery to HubSpot with its status and number of attempts. Failed deliveries are retried automatically.
+
+## Things to know
+
+- **One portal per chatbot.** Each chatbot connects to one HubSpot account. If several of your chatbots use the same portal, the card warns you that their leads land in the same account. Reconnect one to a different portal to keep them apart.
+- **Test mode.** If the card says **Test mode**, it's a placeholder connection, not a real HubSpot account, and no leads are delivered. Click **Reconnect** and connect a real account.
+- **Reconnect** to switch to a different HubSpot account or to renew access.
