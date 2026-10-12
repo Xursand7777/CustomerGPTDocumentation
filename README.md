@@ -53,3 +53,13 @@ Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/sett
 
 ### Resources
 - [Mintlify documentation](https://mintlify.com/docs)
+
+## API reference
+
+The Actions API pages are generated from `api-reference/actions/openapi.json`. That file is built from the live API, which adds a server URL, titles and groups to the backend's own spec. Regenerate it after the backend adds or changes an action:
+
+```
+node scripts/sync-openapi.mjs
+```
+
+`node scripts/sync-openapi.mjs --check` exits with an error if the committed file is out of date. A new action shows up under "Other" until you add it to `GROUPS` in the script and to `docs.json`.

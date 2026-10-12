@@ -1,11 +1,114 @@
 ---
 title: "JavaScript SDK"
-description: "Call the CustomerGPT API from JavaScript and TypeScript with customergpt-sdk."
+description: "Call CustomerGPT from TypeScript and JavaScript with @customergpt/sdk: a typed client with no dependencies."
 ---
 
-{/* TODO: write this page. Cover:
-  - Install
-  - Quick start
-  - Resources: chatbots, knowledge, messages, conversations, leads, analytics, account
-  - Dry runs and errors
-*/}
+`@customergpt/sdk` works in Node.js 18+, Bun, Deno, edge runtimes, and anywhere `fetch` exists. Keep it on your server: the API key must never reach a browser.
+
+## Install
+
+```bash
+npm install @customergpt/sdk
+```
+
+## Quick start
+
+```ts
+import { CustomerGPT } from "@customergpt/sdk";
+
+const client = new CustomerGPT({ apiKey: process.env.CUSTOMERGPT_API_KEY });
+
+// Create a chatbot and train it on your website
+const bot = await client.chatbots.create({ name: "Acme Support", websiteUrl: "https://acme.com" });
+const job = await client.knowledge.addWebsite(bot.id, "https://acme.com", { maxPages: 10 });
+await client.jobs.wait(job, { onProgress: (j) => console.log(j.status) });
+
+// Test an answer, then get the embed code
+const answer = await client.messages.send(bot.id, "What do you offer?");
+const snippet = await client.chatbots.installSnippet(bot.id);
+```
+
+Create an API key under **Role Permissions → Public API Keys** in the dashboard. See [Authentication](/api-reference/authentication).
+
+## Train on files
+
+`.pdf`, `.docx`, `.md`, `.txt` and `.csv` files up to 10 MB:
+
+```ts
+import { readFile } from "node:fs/promises";
+
+const job = await client.knowledge.addFile(bot.id, { name: "handbook.pdf", data: await readFile("./handbook.pdf") });
+await client.jobs.wait(job);
+```
+
+`data` can also be a `Blob` or `File`, for example when your server forwards a user's upload.
+
+To wait for everything a chatbot is training, including sources added in the dashboard:
+
+```ts
+const { trained } = await client.knowledge.wait(bot.id, { timeoutMs: 600_000 });
+```
+
+## Resources
+
+| Resource | Methods |
+| --- | --- |
+| `chatbots` | `list`, `get`, `create`, `update`, `delete`, `installSnippet` |
+| `knowledge` | `list`, `addWebsite`, `addLinks`, `addSitemap`, `addFile`, `addText`, `resync`, `delete`, `status`, `wait`, `responses.list`, `responses.create`, `responses.update`, `responses.delete` |
+| `messages` | `send`, `reply` |
+| `conversations` | `list`, `get`, `update`, `tag`, `bulkUpdate` |
+| `leads` | `list` |
+| `analytics` | `get` |
+| `account` | `usage`, `limits` |
+| `tokens` | `list`, `create`, `revoke` (workspace owner only; the secret is returned once) |
+| `members` | `list`, `remove` (workspace owner only) |
+| `jobs` | `get`, `wait` |
+| `onboarding` | `start`, `preview`, `claim` |
+| `actions` | `list`, `call`: any [action](/api-reference/actions/overview) by name |
+
+## Changes and dry runs
+
+Methods that change data apply immediately; the SDK confirms them for you. Pass `{ dryRun: true }` as the last argument to check a change without making it:
+
+```ts
+await client.chatbots.update(bot.id, { quickPrompts: ["Pricing?", "Book a demo"] }, { dryRun: true });
+await client.chatbots.delete(bot.id, { dryRun: true }); // { name, sources, conversations }
+```
+
+## Errors
+
+Failures throw `CustomerGPTError` with `code`, `status`, and often a `hint`. Errors from the server also carry `requestId`; quote it to [support@customergpt.ai](mailto:support@customergpt.ai).
+
+```ts
+import { CustomerGPTError } from "@customergpt/sdk";
+
+try {
+  await client.account.usage();
+} catch (error) {
+  if (error instanceof CustomerGPTError && error.status === 401) console.error(error.hint);
+  else if (error instanceof CustomerGPTError) console.error(error.code, error.requestId);
+}
+```
+
+`jobs.wait` and `knowledge.wait` throw `TRAINING_FAILED` if training fails and `WAIT_TIMEOUT` on timeout. The error carries the last known job, so you can resume waiting.
+
+## Try without an account
+
+```ts
+const demo = new CustomerGPT();
+const job = await demo.onboarding.start("https://acme.com");
+const ready = await demo.jobs.wait(job);
+await demo.onboarding.preview(ready.id, ready.token!, "What do you sell?");
+console.log(ready.previewUrl); // open it to claim the bot
+```
+
+The draft token is a secret. Drafts expire after 24 hours.
+
+## Configuration
+
+| Option | Environment variable | Default |
+| --- | --- | --- |
+| `apiKey` | `CUSTOMERGPT_API_KEY` | None: only anonymous onboarding works |
+| `baseUrl` | `CUSTOMERGPT_API_URL` | `https://api.customergpt.ai` |
+| `timeoutMs` | | `180000` per request |
+| `fetch` | | `globalThis.fetch` |

@@ -1,0 +1,60 @@
+---
+title: "Create a chatbot"
+api: "POST /v1/chatbots"
+description: "Create a chatbot. It knows nothing until you add a source to train it."
+---
+
+import ChatbotFields from '/snippets/chatbot-fields.mdx';
+
+<ParamField body="name" type="string" required>
+  The name visitors see in the chat window. Up to 100 characters.
+</ParamField>
+<ParamField body="websiteUrl" type="string" required>
+  The site the widget will load on, with `https://`. The widget works on this domain and its subdomains only.
+</ParamField>
+<ParamField body="welcomeMessage" type="string">
+  The first message in the chat. Up to 500 characters.
+</ParamField>
+<ParamField body="primaryColor" type="string">
+  The widget's main color, as a hex code such as `#224CFF`.
+</ParamField>
+<ParamField body="quickPrompts" type="string[]">
+  Suggested questions shown before the first message.
+</ParamField>
+
+Returns 201 with the new chatbot. Returns 400 if the input is invalid, or if your plan's chatbot limit is reached.
+
+To train the chatbot, add a source with the [`sources_add`](/api-reference/knowledge/add-knowledge-source) action, the [CLI](/cli/overview), or the dashboard.
+
+## Response
+
+<ChatbotFields />
+
+<RequestExample>
+```bash cURL
+curl -X POST https://api.customergpt.ai/api/v1/chatbots \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Acme Support", "websiteUrl": "https://acme.com"}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json 201
+{
+  "id": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+  "name": "Acme Support",
+  "websiteUrl": "https://acme.com",
+  "widgetId": "YOUR_WIDGET_ID",
+  "welcomeMessage": "👋 Hi! How can I help you today?",
+  "primaryColor": "#224CFF",
+  "quickPrompts": [],
+  "rateLimitMaxMessages": null,
+  "rateLimitMessagesPerMinute": null,
+  "webhookUrl": null,
+  "calendarLink": null,
+  "salesConfig": { "enabled": true, "bookingEnabled": true, "handoffKeywords": ["human agent", "custom contract"] },
+  "createdAt": "2026-10-12T08:00:00.000Z"
+}
+```
+</ResponseExample>

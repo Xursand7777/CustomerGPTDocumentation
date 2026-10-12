@@ -1,0 +1,39 @@
+<ResponseField name="id" type="string">
+  The chatbot's ID (UUID). Use it in API calls.
+</ResponseField>
+<ResponseField name="name" type="string">
+  The name visitors see in the chat window.
+</ResponseField>
+<ResponseField name="websiteUrl" type="string">
+  The site the widget is allowed to load on, together with its subdomains.
+</ResponseField>
+<ResponseField name="widgetId" type="string">
+  The public ID used in the embed code. It isn't secret and isn't the chatbot's `id`.
+</ResponseField>
+<ResponseField name="welcomeMessage" type="string">
+  The first message in the chat.
+</ResponseField>
+<ResponseField name="primaryColor" type="string">
+  The widget's main color, as a hex code.
+</ResponseField>
+<ResponseField name="quickPrompts" type="string[]">
+  Suggested questions shown before the first message.
+</ResponseField>
+<ResponseField name="rateLimitMaxMessages" type="integer | null">
+  Maximum visitor messages per conversation, or `null` for no limit.
+</ResponseField>
+<ResponseField name="rateLimitMessagesPerMinute" type="integer | null">
+  Maximum messages per minute in one conversation, or `null` for no limit.
+</ResponseField>
+<ResponseField name="webhookUrl" type="string | null">
+  Where [webhooks](/developers/webhooks) are sent. The signing secret is never returned.
+</ResponseField>
+<ResponseField name="calendarLink" type="string | null">
+  The Cal.com booking link the chatbot offers, or `null`.
+</ResponseField>
+<ResponseField name="salesConfig" type="object">
+  [Sales Automation](/leads/collect-leads) settings: `enabled`, `instructions`, `qualificationFields`, `bookingEnabled`, `checkoutUrl`, `hubspotEnabled`, `handoffKeywords`, and `proactive`.
+</ResponseField>
+<ResponseField name="createdAt" type="string">
+  When the chatbot was created, in ISO 8601.
+</ResponseField>

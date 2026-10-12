@@ -1,10 +1,130 @@
 ---
 title: "CLI commands"
-description: "Every customergpt command and its options."
+description: "Every customergpt command, with its arguments and options."
 ---
 
-{/* TODO: write this page. Cover:
-  - Command reference
-  - JSON output for automation
-  - Profiles and configuration
-*/}
+Run `customergpt --help`, or `customergpt <group> --help`, for the same reference in your terminal. Commands that change something need `--yes`, and most accept `--dry-run`; see [Confirmations and dry runs](/cli/overview#confirmations-and-dry-runs).
+
+Every command also accepts:
+
+| Option | What it does |
+| --- | --- |
+| `--json` | Print JSON instead of a table. |
+| `--profile <name>` | Use a saved profile. |
+| `--timeout <seconds>` | Limit each request and the total training wait. The defaults are 180 seconds per request and 900 seconds for training. |
+| `--debug` | Log each request's method, path, status and time to stderr. Never logs keys or bodies. |
+| `--quiet` | Hide progress messages. |
+
+## Account
+
+| Command | What it does |
+| --- | --- |
+| `login` | Sign in through the browser. Options: `--no-browser`, `--read-only`, `--token-stdin`, `--profile <name>`. |
+| `logout` | Sign out of the current profile. |
+| `whoami` | Check access and show usage. |
+| `usage` | Show subscription limits and stored usage. |
+| `limits` | Show your plan, its limits, and current usage. |
+| `profiles list`, `profiles use <name>` | List or select saved profiles. |
+| `dashboard` | Open the dashboard in your browser. |
+| `doctor` | Check Node.js, your config, the server and your sign-in. Exits nonzero if a check fails. |
+
+## Chatbots
+
+| Command | What it does |
+| --- | --- |
+| `chatbots list` | List your chatbots. Options: `--page`, `--limit` (up to 100). |
+| `chatbots get <id>` | Show one chatbot's settings. |
+| `chatbots create <name> --url <website> --yes` | Create a chatbot. It isn't trained until you add a source. |
+| `chatbots update <id> … --yes` | Change settings. See the options below. |
+| `chatbots delete <id> --yes` | Delete a chatbot with its knowledge, conversations and leads. Can't be undone; run with `--dry-run` first. |
+| `installation snippet --chatbot <id>` | Print the embed code for your website. |
+
+Options for `chatbots update`:
+
+| Option | Sets |
+| --- | --- |
+| `--name <text>` | The name |
+| `--url <URL>` | The website the widget may load on |
+| `--welcome <text>` | The welcome message, up to 500 characters |
+| `--color <#RRGGBB>` | The widget color |
+| `--starter <text>` | A quick prompt. Repeat it for several, up to 10; it replaces the list. `--clear-starters` removes them all. |
+| `--calendar-link <URL>` | The Cal.com booking link. `--clear-calendar-link` removes it. |
+| `--sales`, `--no-sales` | Turns Sales Automation on or off |
+| `--instructions <text>`, `--instructions-file <path>` | Sales instructions, up to 6,000 characters |
+| `--handoff-keyword <text>` | A phrase that hands the chat to a person. Repeat it for several; it replaces the list. `--clear-handoff-keywords` removes them all. |
+| `--booking`, `--no-booking` | Whether Sales Automation offers meetings |
+| `--checkout-url <URL>` | The checkout or sign-up link |
+| `--sales-config-file <path>` | Any other Sales Automation settings, as JSON, such as qualification questions or the proactive invitation |
+| `--reset-behaviour` | Restores the default Sales Automation settings |
+
+## Knowledge
+
+| Command | What it does |
+| --- | --- |
+| `knowledge website add <url> --chatbot <id> --yes` | Crawl a site from this page: 5 pages by default, `--max-pages` up to 20. |
+| `knowledge links add <url> [url…] --chatbot <id> --yes` | Train on exactly these pages, up to 20, without following links. |
+| `knowledge sitemap add <sitemap-url> --chatbot <id> --yes` | Train on the pages listed in a sitemap. |
+| `knowledge files add <path> --chatbot <id> --yes` | Train on a `.pdf`, `.docx`, `.md`, `.txt` or `.csv` file up to 10 MB. |
+| `knowledge text add <text> --chatbot <id> --name <name> --yes` | Train on a piece of text. |
+| `knowledge documents list --chatbot <id>` | List sources with their IDs and status. |
+| `knowledge documents resync <source-id> --chatbot <id> --yes` | Re-crawl a website, page-list or sitemap source. |
+| `knowledge documents delete <source-id> --chatbot <id> --yes` | Delete a source and what was learned from it. |
+| `knowledge status --chatbot <id>` | Show what's training now and recent failures. |
+| `knowledge wait --chatbot <id>` | Wait until all training finishes. Exits nonzero if any of it failed. |
+| `jobs get <job-id>` | Show a training job's progress. |
+
+Add `--wait` to any `add` or `resync` command to wait for that job.
+
+## Custom responses
+
+| Command | What it does |
+| --- | --- |
+| `knowledge responses list --chatbot <id>` | List custom responses with their IDs. |
+| `knowledge responses add --chatbot <id> --question <text> --answer <text> --yes` | Add a fixed answer. Questions up to 500 characters, answers up to 4,000. |
+| `knowledge responses update <response-id> --chatbot <id> --yes` | Change `--question`, `--answer`, or both. |
+| `knowledge responses delete <response-id> --chatbot <id> --yes` | Delete one. Run with `--dry-run` first. |
+
+## Conversations and messages
+
+| Command | What it does |
+| --- | --- |
+| `conversations list --chatbot <id>` | List conversations. Options: `--mode ai\|human`, `--leads-only`, `--page`, `--limit`. |
+| `conversations get <id> --chatbot <id>` | Show a conversation and its messages. |
+| `conversations update <id> --chatbot <id> --yes` | Set `--status open\|closed`, or hand it over with `--mode human` or back with `--mode ai`. |
+| `conversations tag <id> --chatbot <id> --yes` | Add or remove tags with `--add` and `--remove`. |
+| `conversations bulk-update <id> [id…] --chatbot <id> --yes` | Change status, mode or tags of up to 100 conversations at once. Run with `--dry-run` first. |
+| `messages reply <conversation-id> <text> --chatbot <id> --yes` | Send a reply to the real visitor. The conversation must be handed to a person first. |
+| `messages send <question> --chatbot <id> --yes` | Test one answer. Uses your message quota; doesn't reach a visitor. |
+| `leads list --chatbot <id>` | List conversations that captured contact details. |
+| `analytics get --chatbot <id>` | Show conversations, handoffs, leads and source counts. |
+
+## API keys and team
+
+Only the workspace owner can run these.
+
+| Command | What it does |
+| --- | --- |
+| `tokens list` | List API keys by name and prefix. |
+| `tokens create [--name <name>] --yes` | Create an API key with full access. The secret is printed once. |
+| `tokens revoke <token-id> --yes` | Revoke a key. Anything using it stops working. |
+| `members list` | List team members, their roles, and seats used. |
+| `members remove <member-id> --yes` | Delete a member's account. |
+
+## Without an account
+
+| Command | What it does |
+| --- | --- |
+| `onboarding start <url> --yes` | Build a temporary demo bot from a website. Returns a job, a secret token and a preview URL. |
+| `onboarding status <job-id> --token <token>` | Show the draft's training progress. |
+| `onboarding preview <job-id> --token <token> --message <question>` | Ask the draft a question. Up to 20 per draft. |
+| `onboarding claim <job-id> --token <token> --yes` | Move the draft into your account. Needs you to be signed in. |
+
+## Advanced
+
+| Command | What it does |
+| --- | --- |
+| `actions` | List every action with its JSON Schema. |
+| `call <action> --json '<input>'` | Run any [action](/api-reference/actions/overview) directly. `--json-file <path>` reads the input from a file. |
+| `mcp` | Run the [MCP server](/developers/mcp) over stdio. |
+| `agent-guide` | Print the workflow and command map for AI agents. |
+| `completion bash`, `completion zsh` | Print shell completion. |

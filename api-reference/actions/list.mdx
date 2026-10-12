@@ -1,7 +1,63 @@
 ---
 title: "List actions"
 api: "GET /v1/agents/actions"
-description: "Every server action with its JSON schema."
+description: "Every action with its title, description, required scopes, and a JSON Schema for its input. No authentication needed."
 ---
 
-{/* TODO: document parameters with <ParamField> and the response with <ResponseField>, plus a <ResponseExample>. */}
+Use this to build input forms, validate requests before you send them, or let an AI agent discover what it can do.
+
+<ResponseField name="actions" type="object[]">
+  One entry per action.
+
+  <Expandable title="properties">
+    <ResponseField name="name" type="string">
+      The action's name, used in the URL: `POST /v1/agents/actions/{name}`.
+    </ResponseField>
+    <ResponseField name="title" type="string">
+      A short human-readable title.
+    </ResponseField>
+    <ResponseField name="description" type="string">
+      What the action does.
+    </ResponseField>
+    <ResponseField name="inputSchema" type="object">
+      JSON Schema (draft 2020-12) for the request body, including `dryRun` and `confirm` for actions that change data.
+    </ResponseField>
+    <ResponseField name="annotations" type="object">
+      Hints for AI clients: `readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`.
+    </ResponseField>
+    <ResponseField name="scopes" type="string[]">
+      OAuth scopes the action needs: `agents:read`, `agents:write`, or both.
+    </ResponseField>
+    <ResponseField name="ownerOnly" type="boolean">
+      `true` for actions only the workspace owner can run, such as managing API keys and team members.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "actions": [
+    {
+      "name": "chatbots_list",
+      "title": "List chatbots",
+      "description": "List workspace chatbots with pagination.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "page": { "default": 1, "type": "integer", "minimum": 1, "maximum": 10000 },
+          "limit": { "default": 25, "type": "integer", "minimum": 1, "maximum": 100 }
+        },
+        "required": ["page", "limit"],
+        "additionalProperties": false
+      },
+      "annotations": { "title": "List chatbots", "readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": true },
+      "authentication": "api_key",
+      "scopes": ["agents:read"],
+      "ownerOnly": false
+    }
+  ]
+}
+```
+</ResponseExample>

@@ -1,9 +1,43 @@
 ---
 title: "Developer overview"
-description: "Ways to build on CustomerGPT: the REST API, the SDK, the CLI, and the MCP server."
+description: "Ways to build on CustomerGPT: the HTTP API, the JavaScript SDK, the CLI, the MCP server, and webhooks."
 ---
 
-{/* TODO: write this page. Cover:
-  - Which tool to use when
-  - Getting an API key
-*/}
+Everything you can do in the dashboard, and more, is available to your code. Pick the tool that fits:
+
+<CardGroup cols={2}>
+  <Card title="HTTP API" icon="code" href="/api-reference/introduction">
+    Call CustomerGPT from any language. The Actions API covers everything; a small REST API manages chatbots.
+  </Card>
+  <Card title="JavaScript SDK" icon="js" href="/developers/sdk">
+    A typed client for Node.js, Bun, Deno and edge runtimes, with no dependencies.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/overview">
+    Create, train and test chatbots from your terminal, scripts and CI.
+  </Card>
+  <Card title="MCP server" icon="robot" href="/developers/mcp">
+    Let Claude, ChatGPT, Cursor or VS Code manage your chatbots for you.
+  </Card>
+  <Card title="Webhooks" icon="bolt" href="/developers/webhooks">
+    Get messages, leads, handoffs and bookings pushed to your own systems.
+  </Card>
+</CardGroup>
+
+## Before you start
+
+- **A plan with API access.** The API, SDK, CLI and MCP server need the Growth, Scale or Enterprise plan. Webhooks need Scale or Enterprise.
+- **An API key, or a sign-in.** Create a key under **Role Permissions → Public API Keys** in the dashboard; see [Authentication](/api-reference/authentication). The CLI and the MCP server can sign you in through the browser instead.
+
+## Try it without an account
+
+The onboarding actions build a temporary demo chatbot from a website, without an account or a key. The demo lasts 24 hours and answers up to 20 preview messages. You can then claim it into your workspace.
+
+```bash
+npx @customergpt/cli onboarding start https://acme.com --yes --wait
+```
+
+## Build with an AI coding agent
+
+- `customergpt agent-guide` prints the workflow and command map for AI agents.
+- The CLI's agent skill, which teaches Claude Code, Codex, Cursor and others to build a support bot, is at `https://api.customergpt.ai/agents/customergpt-cli-skill.md`.
+- This documentation is available as plain text for AI tools at [/docs/llms.txt](https://customergpt.ai/docs/llms.txt).
