@@ -1,9 +1,41 @@
 ---
 title: "Add a text snippet"
-description: "Paste text the chatbot should know that does not live on a page or in a file."
+description: "Teach the chatbot facts that aren't on a page or in a file, such as opening hours or an internal policy."
 ---
 
-{/* TODO: write this page. Cover:
-  - When to use a snippet instead of a page
-  - Editing and deleting snippets
-*/}
+Some answers don't live anywhere you can point a crawler at: holiday opening hours, a return exception, how your team handles a rare case. Add them as text.
+
+## From a question the chatbot couldn't answer
+
+The quickest way is from the [knowledge gaps](/knowledge/knowledge-gaps) report:
+
+1. Click **Dashboard** in the sidebar, find the question under **Knowledge gaps**, and open it.
+2. Under **Add an answer to the knowledge base**, write the answer in **Your answer**.
+3. Click **Add answer to knowledge base**.
+
+CustomerGPT adds it as a text source and marks the gap resolved. Only workspace administrators can do this.
+
+## As a file
+
+Write the text in a `.txt` or `.md` file and drag it onto the upload area in **Knowledge Base**. See [Upload files](/knowledge/upload-files).
+
+## With the CLI or the API
+
+On plans with API access:
+
+```bash
+customergpt knowledge text add "We're open 9am–6pm Monday to Friday, and closed on public holidays." --chatbot BOT_ID --name "Opening hours" --yes --wait
+```
+
+With the API, use the `sources_add` action (see the [API introduction](/api-reference/introduction)) with `text` and `name`.
+
+## Text snippet or custom response?
+
+- **A text snippet** is knowledge. The chatbot answers in its own words from it, and can combine it with other content.
+- **A [custom response](/knowledge/custom-responses)** is an exact answer, sent word for word when a visitor asks that question.
+
+Use a snippet for facts, and a custom response when the wording must not change.
+
+## Change or remove a snippet
+
+A text source can't be edited in place. Delete it and add the new version: with the CLI, `customergpt knowledge documents delete SOURCE_ID --chatbot BOT_ID --yes`. See [Keep your content up to date](/knowledge/keep-content-up-to-date).

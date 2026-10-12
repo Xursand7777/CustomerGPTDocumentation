@@ -1,10 +1,39 @@
 ---
 title: "Connect Telegram"
-description: "Run your CustomerGPT chatbot as a Telegram bot."
+description: "Run your CustomerGPT chatbot as a Telegram bot that answers from your knowledge base."
 ---
 
-{/* TODO: write this page. Cover:
-  - Create a bot with BotFather
-  - Paste the token in the dashboard
-  - Test the bot
-*/}
+Telegram is set up on the **Integrations** page, available on the Growth plan and above.
+
+## 1. Create a bot in Telegram
+
+1. In Telegram, open [@BotFather](https://t.me/BotFather).
+2. Send `/newbot`, then choose a display name and a username ending in `bot`.
+3. BotFather replies with an **API token**, such as `1234567890:AA...`. Copy it and keep it secret: anyone with it controls your bot.
+
+## 2. Connect it to CustomerGPT
+
+1. In CustomerGPT, select your chatbot, open **Integrations**, and click **🔌 Configure** on **Telegram Bot**.
+2. Paste the token into **Telegram HTTP API Bot Token**.
+3. Click **Save Settings**.
+
+CustomerGPT registers its webhook with Telegram for you, so there's nothing else to set up.
+
+## Test it
+
+Open your bot in Telegram, for example `t.me/YourBot`, press **Start**, and ask a question.
+
+## How it works
+
+- **One conversation per chat.** Each Telegram chat becomes a conversation in **Chat History**, tagged `telegram`. Every answer counts toward your monthly messages.
+- **Text only.** The chatbot answers text messages. Photos, voice messages and files are ignored.
+- **Groups.** You can add the bot to a group. By default, Telegram only passes a bot the messages that mention it or reply to it, so members ask with `@YourBot`.
+- **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Telegram too.
+
+<Warning>
+  Don't use **Take Over Chat** on Telegram conversations. Your replies from **Chat History** aren't sent to Telegram; taking over only works for chats on your website.
+</Warning>
+
+## Pause or disconnect
+
+Click **Pause Bot** on the **Telegram Bot** card to stop answering, and **Activate Bot** to resume. To retire the bot for good, send `/deletebot` to @BotFather.

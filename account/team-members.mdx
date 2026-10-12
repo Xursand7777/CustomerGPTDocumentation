@@ -1,10 +1,52 @@
 ---
 title: "Team members"
-description: "Invite teammates to your workspace and remove them."
+description: "Give teammates their own sign-in, choose what they can see, and remove them when they leave."
 ---
 
-{/* TODO: write this page. Cover:
-  - Inviting a member
-  - Owner-only actions
-  - Removing a member
-*/}
+The person who created the workspace is its administrator and sees everything. You can add teammates with one of two roles and choose exactly which pages each person can open.
+
+How many people you can add depends on your plan: Starter has a single seat, Growth 4 and Scale 10, including yours. See [Plans and billing](/account/plans-and-billing).
+
+## Roles
+
+| Role | Default pages |
+| --- | --- |
+| **Administrator** (you) | Everything, including **Billing & Plans**, **Integrations** and **Role Permissions** |
+| **Member** | **My Chatbots**, **Customizer**, **Knowledge Base**, **Chat History**, **Dashboard**, **Meetings** |
+| **Support** | **Chat History**, **Dashboard**, **Meetings** |
+
+You can change the pages for any member or support agent with **Custom Tab Permissions**.
+
+## Add a teammate
+
+1. Open **Role Permissions** in the sidebar.
+2. Under **Team & Access Customizer**, fill in **First Name**, **Last Name**, **Email Address** and a **Password**.
+3. Choose the **Dashboard Access Role**: **Member (Workspace Access)** or **Support (Inbox & Analytics)**.
+4. In **Assign to Chatbot**, pick the chatbot they'll work on.
+5. Under **Custom Tab Permissions**, check the pages they may open.
+6. Click **Create Team Member account**.
+
+CustomerGPT doesn't send an invitation email. Give your teammate their email address and password yourself, over a secure channel, and ask them to sign in at [dashboard.customergpt.ai](https://dashboard.customergpt.ai).
+
+<Note>
+  Members and support agents work only with the chatbot assigned to them. Without an assignment, they can't open any chatbot's data.
+</Note>
+
+## Change access
+
+Under **Active Team Members**, click **✏️ Edit** next to the person, change their role, chatbot or pages, and click **Save Member Changes**. Leave **Password** empty to keep their current one, or type a new one to reset it.
+
+## Remove a teammate
+
+Click **🗑 Delete** next to the person. This deletes their account, and they're signed out.
+
+## From the CLI
+
+As the workspace owner, on a plan with API access:
+
+```bash
+customergpt members list
+customergpt members remove MEMBER_ID --dry-run
+```
+
+`members list` also shows how many seats are used.

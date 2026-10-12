@@ -1,11 +1,45 @@
 ---
-title: "Connect cloud storage"
-description: "Sync content from Google Drive, Notion, Dropbox, OneDrive, Box, or Confluence."
+title: "Connect cloud storage and help centers"
+description: "Train your chatbot on files from Google Drive, OneDrive and SharePoint, pages from Notion, and articles from Zendesk and Intercom."
 ---
 
-{/* TODO: write this page. Cover:
-  - Connecting an account (OAuth)
-  - Choosing folders or pages to sync
-  - How syncing keeps content current
-  - Disconnecting
-*/}
+Instead of downloading files and uploading them again, connect the place they already live and pick what to train on. You set this up on the **Integrations** page, available on the Growth plan and above.
+
+| Source | What you can sync |
+| --- | --- |
+| **Google Drive** | Google Docs, Sheets and Slides, PDF, Word (`.docx`), and text, Markdown and CSV files |
+| **OneDrive**, **SharePoint** | PDF, Word (`.docx`), and text, Markdown and CSV files |
+| **Notion** | Pages |
+| **Zendesk** | Help Center articles |
+| **Intercom** | Help Center articles |
+
+PowerPoint files and scanned PDFs without a text layer can't be read.
+
+## Connect an account
+
+1. Select your chatbot and open **Integrations**.
+2. On the card for the service, click **🔌 Connect Account**.
+3. Sign in to the service and approve read access. The card then shows **Connected**.
+
+## Choose what to train on
+
+1. Click **📂 Browse Files** on the card. On Notion it's **📂 Browse Pages**, on Zendesk **📂 Browse Helpdesk**, and on Intercom **📂 Browse Articles**.
+2. Open folders to find what you need; the path at the top takes you back.
+3. Click **Sync File** next to each file, page or article to train on.
+4. Click **Close Explorer** when you're done.
+
+Synced items appear under **Trained Knowledge Sources** in **Knowledge Base**, and count toward your plan's page limit like any other source. If adding one would take you over the limit, it isn't trained and you're told why.
+
+## Keep synced content current
+
+Synced items don't update by themselves. When a document changes, open the explorer and click **Sync File** on it again: the existing source is updated, not duplicated.
+
+## Limits to know
+
+- **Notion:** the first 100 blocks of each page are read. Split very long pages.
+- **Zendesk:** articles in English (`en-us`), up to the first 100.
+- **Files:** up to 10 MB each, as with [uploads](/knowledge/upload-files).
+
+## Reconnect or switch accounts
+
+Click **Reconnect** on the card to renew access or connect a different account.
