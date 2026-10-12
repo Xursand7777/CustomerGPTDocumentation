@@ -286,5 +286,27 @@
       "x": "https://x.com/Customergptai",
       "linkedin": "https://www.linkedin.com/company/customergpt-ai/"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/api-reference/chatbots/list",
+      "destination": "/api-reference/rest/list-chatbots"
+    },
+    {
+      "source": "/api-reference/chatbots/get",
+      "destination": "/api-reference/rest/get-chatbot"
+    },
+    {
+      "source": "/api-reference/chatbots/create",
+      "destination": "/api-reference/rest/create-chatbot"
+    },
+    {
+      "source": "/api-reference/chatbots/update",
+      "destination": "/api-reference/rest/update-chatbot"
+    },
+    {
+      "source": "/api-reference/actions/call",
+      "destination": "/api-reference/actions/overview"
+    }
+  ]
 }
