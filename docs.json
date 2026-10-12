@@ -112,36 +112,112 @@
             ]
           },
           {
-            "group": "API reference",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/authentication",
-              "api-reference/errors",
-              {
-                "group": "Actions",
-                "pages": [
-                  "api-reference/actions/list",
-                  "api-reference/actions/call"
-                ]
-              },
-              {
-                "group": "Chatbots",
-                "pages": [
-                  "api-reference/chatbots/list",
-                  "api-reference/chatbots/get",
-                  "api-reference/chatbots/create",
-                  "api-reference/chatbots/update"
-                ]
-              }
-            ]
-          },
-          {
             "group": "Tools",
             "pages": [
               "developers/sdk",
               "cli/overview",
               "cli/commands",
               "developers/mcp"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/errors"
+            ]
+          },
+          {
+            "group": "Chatbots REST API",
+            "pages": [
+              "api-reference/rest/list-chatbots",
+              "api-reference/rest/get-chatbot",
+              "api-reference/rest/create-chatbot",
+              "api-reference/rest/update-chatbot"
+            ]
+          },
+          {
+            "group": "Actions API",
+            "pages": [
+              "api-reference/actions/overview",
+              "api-reference/actions/list"
+            ]
+          },
+          {
+            "group": "Actions: Chatbots",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/chatbots_list",
+              "POST /api/v1/agents/actions/chatbots_get",
+              "POST /api/v1/agents/actions/chatbots_create",
+              "POST /api/v1/agents/actions/chatbots_update",
+              "POST /api/v1/agents/actions/chatbots_delete",
+              "POST /api/v1/agents/actions/installation_snippet"
+            ]
+          },
+          {
+            "group": "Actions: Knowledge",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/sources_list",
+              "POST /api/v1/agents/actions/sources_add",
+              "POST /api/v1/agents/actions/sources_sync",
+              "POST /api/v1/agents/actions/sources_delete",
+              "POST /api/v1/agents/actions/training_status",
+              "POST /api/v1/agents/actions/jobs_get"
+            ]
+          },
+          {
+            "group": "Actions: Custom responses",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/responses_list",
+              "POST /api/v1/agents/actions/responses_create",
+              "POST /api/v1/agents/actions/responses_update",
+              "POST /api/v1/agents/actions/responses_delete"
+            ]
+          },
+          {
+            "group": "Actions: Conversations",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/conversations_list",
+              "POST /api/v1/agents/actions/conversations_get",
+              "POST /api/v1/agents/actions/conversations_update",
+              "POST /api/v1/agents/actions/conversations_tag",
+              "POST /api/v1/agents/actions/conversations_bulk_update",
+              "POST /api/v1/agents/actions/messages_reply",
+              "POST /api/v1/agents/actions/messages_send"
+            ]
+          },
+          {
+            "group": "Actions: Analytics and account",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/analytics_get",
+              "POST /api/v1/agents/actions/account_usage",
+              "POST /api/v1/agents/actions/account_limits"
+            ]
+          },
+          {
+            "group": "Actions: API keys and team",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/tokens_list",
+              "POST /api/v1/agents/actions/tokens_create",
+              "POST /api/v1/agents/actions/tokens_revoke",
+              "POST /api/v1/agents/actions/members_list",
+              "POST /api/v1/agents/actions/members_remove"
+            ]
+          },
+          {
+            "group": "Actions: Onboarding",
+            "openapi": "api-reference/actions/openapi.json",
+            "pages": [
+              "POST /api/v1/agents/actions/onboarding_start",
+              "POST /api/v1/agents/actions/onboarding_preview",
+              "POST /api/v1/agents/actions/onboarding_claim"
             ]
           }
         ]

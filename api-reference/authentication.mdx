@@ -1,10 +1,40 @@
 ---
 title: "Authentication"
-description: "Authenticate API requests with an API key in the X-Api-Key header."
+description: "Create an API key in the dashboard and send it with every request."
 ---
 
-{/* TODO: write this page. Cover:
-  - Creating an API key in the dashboard
-  - Sending it in X-Api-Key
-  - Keeping keys secret and revoking them
-*/}
+API requests are authenticated with an API key. Keys belong to your workspace and have full read and write access to it.
+
+The API is available on the Growth, Scale and Enterprise plans. On other plans, requests are rejected with a message that API access needs an upgrade.
+
+## Create an API key
+
+1. In the dashboard, open **Role Permissions** in the sidebar. Only workspace administrators see it.
+2. Under **Public API Keys**, enter a **Key name** that says where the key will be used, for example `Zapier` or `CI pipeline`.
+3. Click **+ Create key**.
+4. Copy the key and store it somewhere safe, then click **I've saved the key**. The key is shown only once.
+
+Keys start with `cgpt_`. The table under **Public API Keys** shows each key's name, the start of the key, when it was created, and when it was last used.
+
+You can also create keys with the CLI as the workspace owner: `customergpt tokens create`.
+
+## Send the key
+
+Put the key in the `X-Api-Key` header:
+
+```bash
+curl https://api.customergpt.ai/api/v1/chatbots \
+  -H "X-Api-Key: cgpt_..."
+```
+
+`Authorization: Bearer cgpt_...` works too.
+
+## Keep keys secret
+
+- Use keys only on your server, in CI, or in tools you control. Never put a key in a web page, a mobile app, or a public repository.
+- Give each integration its own key, so you can revoke one without breaking the others.
+- If a key leaks, click **Revoke** next to it under **Public API Keys**. Anything using it stops working immediately.
+
+## OAuth for AI assistants
+
+The [MCP server](/developers/mcp) and `customergpt login` in the [CLI](/cli/overview) sign you in with OAuth instead of a key. You approve access in the browser, and the client receives a token limited to the scopes you approved: `agents:read` to read workspace data, and `agents:write` to change it.

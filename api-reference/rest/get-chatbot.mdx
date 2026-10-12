@@ -1,0 +1,45 @@
+---
+title: "Get a chatbot"
+api: "GET /v1/chatbots/{id}"
+description: "Read one chatbot's settings."
+---
+
+import ChatbotFields from '/snippets/chatbot-fields.mdx';
+
+<ParamField path="id" type="string" required>
+  The chatbot's `id`, not its `widgetId`.
+</ParamField>
+
+A chatbot that isn't in your workspace returns 404.
+
+## Response
+
+<ChatbotFields />
+
+<ResponseExample>
+```json 200
+{
+  "id": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+  "name": "Acme Support",
+  "websiteUrl": "https://acme.com",
+  "widgetId": "YOUR_WIDGET_ID",
+  "welcomeMessage": "👋 Hi! How can I help you today?",
+  "primaryColor": "#224CFF",
+  "quickPrompts": ["Pricing", "Book a demo"],
+  "rateLimitMaxMessages": 20,
+  "rateLimitMessagesPerMinute": 5,
+  "webhookUrl": "https://hooks.acme.com/customergpt",
+  "calendarLink": "https://cal.com/acme/demo",
+  "salesConfig": { "enabled": true, "bookingEnabled": true, "handoffKeywords": ["human agent", "custom contract"] },
+  "createdAt": "2026-10-11T09:20:00.000Z"
+}
+```
+
+```json 404
+{
+  "statusCode": 404,
+  "message": "Chatbot with ID 'e8503caf-9761-4a69-a3bf-b677718d19cf' not found",
+  "error": "Not Found"
+}
+```
+</ResponseExample>

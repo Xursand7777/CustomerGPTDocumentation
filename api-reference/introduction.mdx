@@ -1,10 +1,67 @@
 ---
 title: "API introduction"
-description: "Base URL, request format, and conventions of the CustomerGPT REST API."
+description: "Two HTTP APIs for building on CustomerGPT: the Actions API for everything, and a small REST API for chatbots."
 ---
 
-{/* TODO: write this page. Cover:
-  - Base URL: https://api.customergpt.ai/api/v1
-  - JSON requests and responses
-  - Dry runs for changes
-*/}
+CustomerGPT has two HTTP APIs. Both live under the same base URL and use the same [API keys](/api-reference/authentication).
+
+```text
+https://api.customergpt.ai/api
+```
+
+| API | What it covers | Use it when |
+| --- | --- | --- |
+| [Actions API](/api-reference/actions/overview) | Everything: chatbots, knowledge sources, training, custom responses, conversations, replies, analytics, API keys, team, onboarding | You're building an integration or automation. The [CLI](/cli/overview), the [SDK](/developers/sdk) and the [MCP server](/developers/mcp) all use it. |
+| [Chatbots REST API](/api-reference/rest/list-chatbots) | Create, list, read and update chatbots | You only need to manage chatbots and prefer plain REST. |
+
+The API is available on the Growth, Scale and Enterprise plans.
+
+## Make your first request
+
+List your chatbots with the Actions API:
+
+```bash
+curl https://api.customergpt.ai/api/v1/agents/actions/chatbots_list \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"page": 1, "limit": 25}'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "id": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+        "name": "Acme Support",
+        "websiteUrl": "https://acme.com",
+        "widgetId": "YOUR_WIDGET_ID"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "limit": 25
+  }
+}
+```
+
+The same list with the REST API:
+
+```bash
+curl https://api.customergpt.ai/api/v1/chatbots \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY"
+```
+
+## Conventions
+
+- **JSON in, JSON out.** Send `Content-Type: application/json`.
+- **Changes need confirmation.** In the Actions API, an action that changes data runs only with `"confirm": true`, and `"dryRun": true` checks it without changing anything. See [How actions work](/api-reference/actions/overview).
+- **Rate limit.** The Actions API allows 120 requests per minute per API key. Requests without a key are counted per IP address.
+- **Request IDs.** Every response has an `X-Request-Id` header. Include it when you contact [support@customergpt.ai](mailto:support@customergpt.ai) about a failed request.
+- **Keys stay on your server.** The widget's embed code uses a public Widget ID, not an API key. Never put an API key in a web page or a mobile app.
+
+## Machine-readable descriptions
+
+- **OpenAPI 3.1** for the Actions API: `https://api.customergpt.ai/api/agents/openapi.json`
+- **Action catalog** with a JSON Schema for every action's input: `https://api.customergpt.ai/api/v1/agents/actions`. See [List actions](/api-reference/actions/list).

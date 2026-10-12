@@ -1,0 +1,54 @@
+---
+title: "How actions work"
+description: "Every operation is a named action you POST to. Changes run only with confirm, and dry runs check them first."
+---
+
+The Actions API exposes every operation as a named action:
+
+```text
+POST https://api.customergpt.ai/api/v1/agents/actions/{action}
+```
+
+The request body is the action's input as JSON. The pages in the sidebar describe each action's input, and [List actions](/api-reference/actions/list) returns them all as JSON Schema.
+
+## Responses
+
+A successful call returns `"ok": true` and the result in `data`:
+
+```json
+{ "ok": true, "data": { "id": "e8503caf-9761-4a69-a3bf-b677718d19cf", "name": "Acme Support" } }
+```
+
+A failed call returns `"ok": false` and an `error`. See [Errors](/api-reference/errors).
+
+## Changes need confirm
+
+Actions that only read data run straight away. Actions that change data, cost messages, or contact a visitor run only when the body includes `"confirm": true`. Without it, they fail with `CONFIRMATION_REQUIRED` and nothing happens.
+
+```bash
+curl https://api.customergpt.ai/api/v1/agents/actions/chatbots_create \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Acme Support", "websiteUrl": "https://acme.com", "confirm": true}'
+```
+
+## Dry runs
+
+Send `"dryRun": true` to check a change without making it. The API validates the input and your access, and for deletions it reports what would be removed:
+
+```bash
+curl https://api.customergpt.ai/api/v1/agents/actions/chatbots_delete \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"chatbotId": "e8503caf-9761-4a69-a3bf-b677718d19cf", "dryRun": true}'
+```
+
+Run deletions and bulk changes as a dry run first. `chatbots_delete`, `sources_delete` and `responses_delete` can't be undone.
+
+## Training runs in the background
+
+Actions that train, such as [`sources_add`](/api-reference/knowledge/add-knowledge-source) and [`sources_sync`](/api-reference/knowledge/resync-knowledge-source), return a job right away. Poll [`jobs_get`](/api-reference/knowledge/get-training-job-status) with the job's ID until it finishes, or [`training_status`](/api-reference/knowledge/get-chatbot-training-status) to wait for everything a chatbot is training.
+
+## Without an account
+
+`onboarding_start` and `onboarding_preview` work without an API key. They build a temporary demo bot from a URL that lasts 24 hours. `onboarding_claim` then moves it into your workspace.

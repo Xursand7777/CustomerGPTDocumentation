@@ -1,10 +1,57 @@
 ---
 title: "Errors"
-description: "Error format, status codes, and how to handle them."
+description: "The error format of each API, the codes you can get, and what to do about them."
 ---
 
-{/* TODO: write this page. Cover:
-  - Error response shape
-  - Status codes
-  - Rate limiting
-*/}
+## Actions API
+
+A failed action returns `"ok": false` with an `error` object and the request ID:
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "CONFIRMATION_REQUIRED",
+    "status": 403,
+    "message": "Set confirm=true after approving this operation, or dryRun=true to inspect it."
+  },
+  "meta": { "requestId": "4f6c2a8e-1d7b-4c0e-9a35-2b8f0e7d6c51" }
+}
+```
+
+The HTTP status matches `error.status`. When there's no specific code, `code` is `HTTP_` plus the status, such as `HTTP_404`.
+
+| Code | Status | What it means | What to do |
+| --- | --- | --- | --- |
+| `HTTP_400` | 400 | The input is invalid, a plan limit was reached, or your plan doesn't include API access | Read `message`; fix the input or upgrade the plan |
+| `INVALID_ARGUMENTS` | 400 | The input doesn't match the action's schema | Check the schema in [List actions](/api-reference/actions/list) |
+| `HUMAN_MODE_REQUIRED` | 400 | You tried to reply in a conversation the chatbot is still handling | Hand it to a person first with `conversations_update` and `mode: "human"` |
+| `HTTP_401` | 401 | The API key or OAuth token is missing, invalid, or expired | Check the key; sign in again for OAuth |
+| `CONFIRMATION_REQUIRED` | 403 | A change was sent without `"confirm": true` | Review it, then send it again with `"confirm": true` |
+| `INSUFFICIENT_SCOPE` | 403 | The OAuth token lacks the scope this action needs | Sign in again and approve write access |
+| `OWNER_REQUIRED` | 403 | API key and team actions are for the workspace owner only | Use the owner's credentials |
+| `CONVERSATIONS_NOT_FOUND` | 404 | One or more conversation IDs don't exist in this chatbot | Check the IDs |
+| `HTTP_404` | 404 | The chatbot, source, or other item doesn't exist in your workspace | Check the ID; use the chatbot's `id`, not its `widgetId` |
+| `INTERNAL_ERROR` | 500 | Something failed on our side | Retry later; if it persists, send the request ID to support |
+
+## Chatbots REST API
+
+The REST endpoints return the standard error shape:
+
+```json
+{
+  "statusCode": 404,
+  "message": "Chatbot with ID 'e8503caf-9761-4a69-a3bf-b677718d19cf' not found",
+  "error": "Not Found"
+}
+```
+
+For validation errors, `message` is a list with one entry per problem. A chatbot that isn't in your workspace returns 404, not 403, so the API doesn't reveal which IDs exist.
+
+## Rate limits
+
+The Actions API allows 120 requests per minute per API key. Over the limit, you get status 429. Wait a moment, then retry with a growing delay.
+
+## Request IDs
+
+Every response has an `X-Request-Id` header; in the Actions API it's also in `meta.requestId`. It isn't a secret. Log it, and include it when you contact [support@customergpt.ai](mailto:support@customergpt.ai) so the request can be found.

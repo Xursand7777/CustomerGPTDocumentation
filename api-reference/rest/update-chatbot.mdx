@@ -1,0 +1,80 @@
+---
+title: "Update a chatbot"
+api: "PATCH /v1/chatbots/{id}"
+description: "Change a chatbot's settings. Send only the fields you want to change."
+---
+
+import ChatbotFields from '/snippets/chatbot-fields.mdx';
+
+<ParamField path="id" type="string" required>
+  The chatbot's `id`, not its `widgetId`.
+</ParamField>
+
+<ParamField body="name" type="string">
+  Up to 100 characters.
+</ParamField>
+<ParamField body="websiteUrl" type="string">
+  The site the widget loads on, with `https://`. Changing it moves the widget to the new domain.
+</ParamField>
+<ParamField body="welcomeMessage" type="string">
+  Up to 500 characters.
+</ParamField>
+<ParamField body="primaryColor" type="string">
+  A hex code such as `#224CFF`.
+</ParamField>
+<ParamField body="quickPrompts" type="string[] | null">
+  Replaces all suggested questions. `null` removes them.
+</ParamField>
+<ParamField body="rateLimitMaxMessages" type="integer | null">
+  Maximum visitor messages per conversation; `null` for no limit. Growth plan and above.
+</ParamField>
+<ParamField body="rateLimitMessagesPerMinute" type="integer | null">
+  Maximum messages per minute in one conversation; `null` for no limit. Growth plan and above.
+</ParamField>
+<ParamField body="webhookUrl" type="string | null">
+  Where [webhooks](/developers/webhooks) are sent; `null` turns them off. Scale plan and above.
+</ParamField>
+<ParamField body="webhookSecret" type="string | null">
+  The signing secret, up to 255 characters. It's never returned. Scale plan and above.
+</ParamField>
+<ParamField body="calendarLink" type="string | null">
+  A Cal.com booking link; `null` removes it.
+</ParamField>
+<ParamField body="salesConfig" type="object | null">
+  Partial [Sales Automation](/leads/collect-leads) settings, merged into the current ones. Set `enabled` to turn it on or off. `null` restores the defaults.
+</ParamField>
+
+Returns 200 with the updated chatbot. Returns 400 for invalid input or a setting your plan doesn't include, and 404 if the chatbot isn't in your workspace.
+
+## Response
+
+<ChatbotFields />
+
+<RequestExample>
+```bash cURL
+curl -X PATCH https://api.customergpt.ai/api/v1/chatbots/e8503caf-9761-4a69-a3bf-b677718d19cf \
+  -H "X-Api-Key: $CUSTOMERGPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"welcomeMessage": "Hi! Ask me anything about Acme.", "quickPrompts": ["Pricing", "Shipping"]}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json 200
+{
+  "id": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+  "name": "Acme Support",
+  "websiteUrl": "https://acme.com",
+  "widgetId": "YOUR_WIDGET_ID",
+  "welcomeMessage": "Hi! Ask me anything about Acme.",
+  "primaryColor": "#224CFF",
+  "quickPrompts": ["Pricing", "Shipping"],
+  "rateLimitMaxMessages": null,
+  "rateLimitMessagesPerMinute": null,
+  "webhookUrl": null,
+  "calendarLink": null,
+  "salesConfig": { "enabled": true, "bookingEnabled": true, "handoffKeywords": ["human agent", "custom contract"] },
+  "createdAt": "2026-10-11T09:20:00.000Z"
+}
+```
+</ResponseExample>

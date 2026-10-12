@@ -1,0 +1,35 @@
+---
+title: "List chatbots"
+api: "GET /v1/chatbots"
+description: "List every chatbot in your workspace, newest first."
+---
+
+import ChatbotFields from '/snippets/chatbot-fields.mdx';
+
+Returns an array of chatbots. There is no pagination; for paging, use the `chatbots_list` action.
+
+## Response
+
+<ChatbotFields />
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": "e8503caf-9761-4a69-a3bf-b677718d19cf",
+    "name": "Acme Support",
+    "websiteUrl": "https://acme.com",
+    "widgetId": "YOUR_WIDGET_ID",
+    "welcomeMessage": "👋 Hi! How can I help you today?",
+    "primaryColor": "#224CFF",
+    "quickPrompts": ["Pricing", "Book a demo"],
+    "rateLimitMaxMessages": null,
+    "rateLimitMessagesPerMinute": null,
+    "webhookUrl": null,
+    "calendarLink": null,
+    "salesConfig": { "enabled": true, "bookingEnabled": true, "handoffKeywords": ["human agent", "custom contract"] },
+    "createdAt": "2026-10-11T09:20:00.000Z"
+  }
+]
+```
+</ResponseExample>

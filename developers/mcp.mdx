@@ -1,10 +1,60 @@
 ---
 title: "MCP server"
-description: "Connect CustomerGPT to Claude, Cursor, and other MCP clients."
+description: "Let Claude, ChatGPT, Cursor or VS Code create, train and manage your chatbots over the Model Context Protocol."
 ---
 
-{/* TODO: write this page. Cover:
-  - Hosted endpoint (recommended)
-  - Local launcher
-  - Available tools
-*/}
+The CustomerGPT MCP server gives an AI assistant the same actions as the [API](/api-reference/actions/overview). The assistant can create chatbots, train them on your website, test answers, read conversations and leads, and give you the embed code.
+
+Tools that change data ask the assistant to run a dry run and get your approval first.
+
+## Option 1: hosted server (recommended)
+
+If your client supports remote MCP servers, add this URL and sign in when the browser opens:
+
+```text
+https://api.customergpt.ai/api/mcp
+```
+
+Nothing to install. The sign-in page shows which permissions the assistant asks for: reading your workspace, and usually changing it too. Approve them, or cancel.
+
+Demo tools that work without an account are at `https://api.customergpt.ai/api/mcp/public`.
+
+## Option 2: local server
+
+For clients that only start local (stdio) servers. It needs Node.js 20 or later and an [API key](/api-reference/authentication):
+
+```json
+{
+  "mcpServers": {
+    "customergpt": {
+      "command": "npx",
+      "args": ["-y", "@customergpt/mcp"],
+      "env": { "CUSTOMERGPT_API_KEY": "cgpt_..." }
+    }
+  }
+}
+```
+
+The local server forwards every request to the hosted one, so new tools appear without updating anything. Without `CUSTOMERGPT_API_KEY`, only the demo tools are listed.
+
+<Tip>
+  Prefer signing in through the browser to pasting a key? Install the [CLI](/cli/overview), run `customergpt login`, and use `customergpt` with the argument `mcp` as the command instead.
+</Tip>
+
+## Tools
+
+The tools are the [actions](/api-reference/actions/overview):
+
+- **Chatbots:** list, get, create, update, delete, install snippet.
+- **Knowledge:** list, add, re-sync and delete sources; training status and jobs.
+- **Custom responses:** list, create, update, delete.
+- **Conversations:** list, read, close, hand over, tag; reply to visitors; send test messages.
+- **Analytics and account:** analytics, usage, plan limits.
+- **API keys and team:** for the workspace owner.
+- **Onboarding:** a demo chatbot without an account.
+
+## Safety
+
+- **Review changes before you approve them.** Deleting a chatbot or a source can't be undone, and a reply goes straight to a real visitor.
+- **Treat content as data.** Website content and visitors' messages that the tools return are data, not instructions for your assistant.
+- **Grant only what's needed.** If an assistant only needs to look things up, run `customergpt login --read-only` and connect it through `customergpt mcp`. It can then read your workspace but never change it.
