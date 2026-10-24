@@ -1,0 +1,68 @@
+---
+title: "Connect Intercom Messenger"
+description: "Let your CustomerGPT chatbot answer Intercom Messenger conversations until a teammate takes over."
+---
+
+Once connected, your chatbot answers the Intercom conversations that no teammate is assigned to, from the same knowledge it uses on your website. When a visitor needs a person, it leaves the conversation to your team.
+
+You need:
+
+- The Growth plan or above.
+- To be the owner of your CustomerGPT workspace. Team members can't link Intercom.
+- Permission to install apps in your Intercom workspace.
+
+<Note>
+  This page is about answering conversations. To train your chatbot on Intercom Help Center articles, use the **Intercom** card under **Knowledge Bases & Helpdesk Sync**. See [Connect cloud storage and help centers](/knowledge/connect-cloud-storage).
+</Note>
+
+## 1. Connect Intercom
+
+1. In CustomerGPT, select your chatbot and open **Integrations**.
+2. On the **Intercom Messenger** card, set **Intercom workspace region** to where your Intercom workspace is hosted: **United States**, **Europe** or **Australia**. With the wrong region, signing in to Intercom with Google fails.
+3. Click **🔌 Connect Intercom**, sign in to Intercom, and approve access.
+
+You can also install CustomerGPT from the Intercom App Store. Either way, Intercom sends you back to the CustomerGPT dashboard.
+
+## 2. Link a chatbot
+
+1. Sign in as the owner of your CustomerGPT workspace. The **Intercom Messenger** panel appears at the top of **Integrations**.
+2. In **Chatbot**, pick the chatbot that should answer.
+3. Click **Link chatbot**. The panel shows **Connected to** and your workspace, and the card shows **Answering in** with your workspace name and region.
+
+<Warning>
+  The install works once, and only for 15 minutes after Intercom sends you back. If it runs out, click **🔌 Connect Intercom** again and link a chatbot then.
+</Warning>
+
+## 3. Turn off other automatic replies
+
+If Fin or an Intercom Workflow also replies to these conversations, turn it off, or your customers get two answers.
+
+## Test it
+
+Open the Intercom Messenger on your site, start a new conversation, and ask a question.
+
+## How it works
+
+- **It answers unassigned conversations.** The chatbot replies while no teammate is assigned to the conversation. A conversation routed to a team inbox, but not to a person, still gets answers.
+- **It steps aside for your team.** When a teammate replies in a conversation, the chatbot stops answering there until the conversation is closed.
+- **Replies come from the admin who installed the app.** The chatbot posts as that Intercom admin. Because of this, that admin's own manual replies don't count as a teammate stepping in. Install the app as a dedicated teammate, such as "AI Assistant", to avoid this.
+- **Email is skipped.** The chatbot doesn't answer conversations that started by email, so it never replies to an auto-responder.
+- **One conversation per Intercom conversation.** Each one appears in **Chat History**, tagged `intercom_bot`. Every answer counts toward your monthly messages.
+- **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Intercom too. See [Collect leads](/leads/collect-leads).
+
+### Handing a conversation to your team
+
+With [Sales Automation](/leads/collect-leads) on, when the visitor asks for a person or writes one of your handoff phrases, the chatbot sends its reply and adds an internal note for your team: **CustomerGPT handed this conversation to your team. It will not reply here until the conversation is closed.** The conversation stays in the inbox Intercom routed it to.
+
+When a conversation is closed and the user writes in it again, the chatbot answers in a new conversation.
+
+### Replying from CustomerGPT
+
+You can also reply from CustomerGPT. Click **Take Over Chat** on the conversation in **Chat History**: the user gets **🎧 A team member has joined and will reply here.**, then each reply you send. Click **Release Chat to AI** to hand it back. See [Take over a conversation](/conversations/take-over-a-conversation).
+
+## Switch chatbots or disconnect
+
+- **Switch chatbots:** click **Reconnect** on the **Intercom Messenger** card and link a different chatbot.
+- **Disconnect:** uninstall CustomerGPT from your installed apps in Intercom.
+
+If your workspace drops below the Growth plan, the chatbot stops answering in Intercom until you upgrade.

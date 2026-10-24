@@ -5,6 +5,49 @@ description: "New features, improvements, and fixes in CustomerGPT."
 
 {/* Add the newest entry at the top. Each release is one <Update>. */}
 
+<Update label="October 24, 2026" description="Manage your subscription, and Crisp">
+  - **Cancel and resume** your subscription in **Profile Settings**. A cancelled plan stays active until the end of the period you paid for, and you can take the cancellation back until then. See [Cancel](/account/plans-and-billing#cancel).
+  - **Failed payments** no longer cost you your plan after 14 days. It keeps working for up to 30 days while Paddle retries, and **Update payment** opens Paddle's card form. A subscription Paddle paused can be resumed from **Billing & Plans**. See [Failed payments](/account/plans-and-billing#failed-payments).
+  - **Crisp**: the chatbot answers Crisp chats through a website token and a web hook, and stays quiet once one of your operators replies. See [Connect Crisp](/integrations/crisp).
+</Update>
+
+<Update label="October 23, 2026" description="Freshchat and Zoho SalesIQ">
+  - **Freshchat**: the chatbot answers as a Freshchat agent, hands chats to a group you choose, and stays quiet while one of your agents has the chat. See [Connect Freshchat](/integrations/freshchat).
+  - **Zoho SalesIQ**: the chatbot answers SalesIQ chats as a Zobot and forwards visitors to your operators when they need a person. See [Connect Zoho SalesIQ](/integrations/zoho-salesiq).
+  - **Intercom Messenger** card shows which Intercom workspace the chatbot answers in.
+</Update>
+
+<Update label="October 22, 2026" description="Intercom Messenger">
+  - **Intercom Messenger**: the chatbot answers Intercom conversations no teammate is assigned to, and leaves a note for your team when it hands one over. See [Connect Intercom Messenger](/integrations/intercom).
+  - **Slack** answers each message once, even when Slack delivers it again, and formats replies with Markdown.
+</Update>
+
+<Update label="October 21, 2026" description="Signup and team seats">
+  - **The plan you pick on the pricing page** is the plan your trial starts on, even if you reload the signup page, and the signup form says which plan that is. Enterprise has no trial.
+  - **Team seats** follow your plan: once every seat is taken, adding another teammate is refused. See [Team members](/account/team-members).
+</Update>
+
+<Update label="October 19, 2026" description="Zendesk messaging">
+  - **Zendesk messaging**: install CustomerGPT from the Zendesk Marketplace, link a chatbot, and it answers your messaging conversations and passes them to your agents when needed. See [Connect Zendesk messaging](/integrations/zendesk).
+  - **Zendesk Help Center sync** connects your own Zendesk account: type your Zendesk address on the card before you connect. If you connected Zendesk earlier, reconnect it. See [Connect cloud storage and help centers](/knowledge/connect-cloud-storage).
+</Update>
+
+<Update label="October 17, 2026" description="HubSpot delivery and simpler sign-in">
+  - **HubSpot**: connecting HubSpot turns on lead delivery by itself, and **Recent deliveries** has **Retry** buttons for failed deliveries. See [Connect HubSpot](/integrations/hubspot).
+  - **Sign-in and sign-up** no longer ask you to solve a captcha.
+</Update>
+
+<Update label="October 14, 2026" description="Upgrades without a second subscription">
+  - **Upgrading** a paid plan switches your current subscription and charges the difference for the rest of the period, instead of starting a second subscription. See [Upgrade](/account/plans-and-billing#upgrade).
+  - **Only the workspace owner** can create chatbots. Team members work with the chatbots assigned to them.
+  - **Team members** see the workspace's plan usage on **Dashboard**.
+</Update>
+
+<Update label="October 13, 2026" description="Take over Slack and Telegram conversations">
+  - **Take Over Chat** now works for Slack and Telegram conversations: your replies from **Chat History** are posted in the thread or chat. See [Take over a conversation](/conversations/take-over-a-conversation).
+  - **Security:** CustomerGPT now checks that every message from a messaging channel really comes from that channel. If your Telegram bot stopped answering, [save its settings again](/integrations/telegram#if-the-bot-stops-answering).
+</Update>
+
 <Update label="October 11, 2026" description="Documents are read properly everywhere">
   - **PDF and Word uploads in the dashboard** are now read and trained on. Before this fix, a PDF uploaded in the dashboard trained the chatbot on placeholder text instead of your document. If you uploaded PDFs before October 11, [upload them again](/knowledge/upload-files).
   - **Cloud storage** syncs from Google Drive, OneDrive and SharePoint now read the text of PDF and Word files, too. See [Connect cloud storage](/knowledge/connect-cloud-storage).

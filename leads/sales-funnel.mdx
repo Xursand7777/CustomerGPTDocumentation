@@ -1,0 +1,48 @@
+---
+title: "Track your sales funnel"
+description: "Follow conversations through qualification, booking and payment, find where visitors drop off, and record the payments you receive."
+---
+
+The sales funnel shows how many conversations reach each sales stage, and where most of them stop. It's at the top of **Sales Automation**, which workspace administrators can open.
+
+## The four stages
+
+| Stage | A conversation counts when |
+| --- | --- |
+| **Conversations** | It started in the period and the visitor sent at least one message. Empty sessions and previews don't count. |
+| **Qualified leads** | The chatbot qualified the visitor. See [Collect leads](/leads/collect-leads). |
+| **Bookings** | The visitor booked a meeting in the chat. See [Book meetings](/leads/book-meetings). |
+| **Payments** | You confirmed the visitor's payment in **Chat History**. See [Record a payment](#record-a-payment). |
+
+A conversation counts at a stage only if it passed every stage before it, in order. A booking without a qualification, or a payment without a booking, isn't counted. Each conversation counts once per stage.
+
+The funnel counts the moment Sales Automation qualified a visitor, not the lead score. A 🔥 Hot score earned while Sales Automation was off doesn't put a conversation under **Qualified leads**.
+
+## Read the funnel
+
+1. Select your chatbot and open **Sales Automation**.
+2. Under **Sales funnel**, choose the period: **Last 7 days**, **Last 30 days**, **All time**, or **Custom dates**. For custom dates, pick **From** and **Through** and click **Apply dates**. The last day is included in full.
+3. Click **Refresh** to load the latest numbers.
+
+The funnel shows:
+
+- **Conversation → payment**: the share of conversations that reached a payment.
+- Each stage's count, and the share of the previous stage that reached it.
+- **Largest drop-off**: the step where the most conversations stopped.
+- **Progress between stages**: for each step, the **Conversion**, the conversations **Not yet advanced**, and how many of those are **Closed** or **Still open**.
+
+The period selects conversations by when they started. Open conversations may still move to the next stage, so "not yet advanced" doesn't mean the visitor is gone. **Closed** and **Still open** show each conversation's status today.
+
+## Record a payment
+
+CustomerGPT doesn't see the payments your visitors make in your own checkout, so you confirm them yourself. A click on the chatbot's **Get started** button isn't a payment.
+
+1. In **Chat History**, open the visitor's conversation.
+2. Under **Visitor payment**, click **Confirm payment**.
+3. Check **I checked the completed payment for this visitor.** and click **Confirm payment**.
+
+The panel then shows **Payment confirmed manually** with the date and time you confirmed it. Confirming again doesn't add a second payment. Only workspace administrators see **Visitor payment**.
+
+<Note>
+  A zero in **Payments** means no payments have been confirmed yet, not that nobody paid. Your own subscription payments to CustomerGPT are never counted.
+</Note>

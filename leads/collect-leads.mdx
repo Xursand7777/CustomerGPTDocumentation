@@ -28,7 +28,7 @@ When it's on, the chatbot:
   - **Offer meeting booking** shows your calendar in the chat. It needs Cal.com connected; see [Book meetings](/leads/book-meetings).
   - **Checkout or signup URL** gives the chatbot a **Get started** button that sends ready visitors to this page.
   - **Transfer to a person when these phrases appear** lists the phrases that hand the chat to your team. See [Take over a conversation](/conversations/take-over-a-conversation).
-  - **Send contacts and qualification summaries to HubSpot** creates or updates a HubSpot contact for each lead, matched by email. It needs HubSpot connected in **Integrations**; see [Connect HubSpot](/integrations/hubspot).
+  - **Send contacts and qualification summaries to HubSpot** creates or updates a HubSpot contact for each lead, matched by email. It needs HubSpot connected in **Integrations**, and connecting HubSpot turns it on. See [Connect HubSpot](/integrations/hubspot).
 
 Click **Save sales settings** to apply your changes, or **Restore default settings** to start over. To check your settings, click **Test saved settings**. The preview doesn't create leads, meetings or CRM deliveries, but its AI replies count toward your monthly messages.
 
@@ -58,7 +58,7 @@ Every conversation gets a lead score:
 
 - **Chat History**: filter by **Leads: Hot**, **Warm** or **Cold**. **User Details** shows the email and phone, and **Sales qualification** shows where the conversation started and any booking.
 - **Dashboard**: **Captured Visitor Leads** lists the email addresses visitors left, with the time each was captured.
-- **Sales Automation**: **Sales activity** counts conversations at each stage, all time: invitations shown and accepted, conversations, contacts captured, qualified leads, confirmed meetings, and checkout clicks.
+- **Sales Automation**: the **Sales funnel** follows conversations from qualification to booking and payment over a period you choose, and shows where most of them stop. See [Track your sales funnel](/leads/sales-funnel). **Sales activity** counts conversations at each stage, all time: invitations shown and accepted, conversations, contacts captured, qualified leads, confirmed meetings, and checkout clicks.
 - **HubSpot**, if you turned on **Send contacts and qualification summaries to HubSpot**.
 - **Your own systems**: on the Scale plan and above, a [`lead.captured` webhook](/developers/webhooks) fires the first time a visitor leaves an email or phone number in a conversation while Sales Automation is on.
 - **The CLI**: `customergpt leads list --chatbot BOT_ID`.

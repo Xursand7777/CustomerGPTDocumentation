@@ -74,6 +74,7 @@
             "pages": [
               "leads/collect-leads",
               "leads/book-meetings",
+              "leads/sales-funnel",
               "leads/analytics"
             ]
           },
@@ -92,11 +93,31 @@
           {
             "group": "Integrations",
             "pages": [
-              "integrations/overview",
+              "integrations/overview"
+            ]
+          },
+          {
+            "group": "Messaging channels",
+            "pages": [
               "integrations/slack",
-              "integrations/telegram",
-              "integrations/zapier",
-              "integrations/hubspot"
+              "integrations/telegram"
+            ]
+          },
+          {
+            "group": "Help desks and live chat",
+            "pages": [
+              "integrations/zendesk",
+              "integrations/intercom",
+              "integrations/crisp",
+              "integrations/freshchat",
+              "integrations/zoho-salesiq"
+            ]
+          },
+          {
+            "group": "Sales and automation",
+            "pages": [
+              "integrations/hubspot",
+              "integrations/zapier"
             ]
           }
         ]

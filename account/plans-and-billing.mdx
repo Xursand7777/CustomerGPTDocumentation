@@ -1,6 +1,6 @@
 ---
 title: "Plans and billing"
-description: "What each plan includes, how the free trial works, and how to upgrade, buy more messages, or cancel."
+description: "What each plan includes, how the free trial works, and how to upgrade, buy more messages, handle a failed payment, or cancel."
 ---
 
 ## Plans
@@ -15,7 +15,7 @@ Prices are per month. Paying yearly costs about 20% less.
 | **Content you can train on**, in pages of 2,500 characters | 1,000 | 10,000 | 50,000 | By agreement |
 | **AI messages per month** | 4,000 | 10,000 | 40,000 | By agreement |
 | **Team seats**, including yours | 1 | 4 | 10 | By agreement |
-| **Integrations page:** Slack, Telegram, HubSpot, Cal.com, cloud storage | | Yes | Yes | Yes |
+| **Integrations page:** Slack, Telegram, help desks, HubSpot, Cal.com, cloud storage | | Yes | Yes | Yes |
 | **API, CLI, SDK, MCP server** | | Yes | Yes | Yes |
 | **Rate limits per visitor** | | Yes | Yes | Yes |
 | **Webhooks and Zapier** | | | Yes | Yes |
@@ -24,9 +24,13 @@ For Enterprise, click **Contact Sales** on the **Billing & Plans** page. The [pr
 
 ## Free trial
 
-New accounts start with a 14-day free trial, no credit card required. The trial is of the plan you chose when you signed up, or Starter if you didn't choose one.
+New accounts start with a 14-day free trial, no credit card required. The trial is of the plan you chose on the pricing page when you signed up, Starter, Growth or Scale, or Starter if you didn't choose one. Enterprise has no trial.
 
-When a trial or a subscription ends without payment, the workspace drops to the free tier: 1 chatbot, 100 pages of content, 100 AI messages a month, and no API access. Upgrade any time to get your plan's limits back.
+If you sign up while linking a [Zendesk](/integrations/zendesk) or [Intercom](/integrations/intercom) install, and didn't choose a plan, the trial is of Growth, the first plan with integrations.
+
+In the last three days of the trial, the dashboard shows **Your trial ends in** with the days left, and a **Choose a plan** button.
+
+When a trial or a subscription ends without payment, the workspace drops to the free tier: 1 chatbot, 100 pages of content, 100 AI messages a month, and no API access. The dashboard shows **Your plan is no longer active**, with **Go to Billing & Upgrade**. Nothing is deleted: upgrade any time to get your plan's limits back. Team members see the same notice, with the workspace administrator's email address to ask.
 
 ## Check your usage
 
@@ -35,22 +39,54 @@ When a trial or a subscription ends without payment, the workspace drops to the 
 
 When the month's messages run out, the chatbot stops answering until the count resets or you add more.
 
-## Upgrade or change plans
+## Upgrade
 
 1. Open **Billing & Plans** in the sidebar.
 2. Choose **Monthly** or **Yearly**.
-3. Click the plan you want and complete the checkout.
+3. Click **Upgrade to** on the plan you want.
+
+What happens next depends on whether you already pay for a plan:
+
+- **On a trial, or after your plan ended:** the checkout opens. Complete it, and the plan is active as soon as the payment goes through.
+- **On a paid plan:** your current subscription switches to the new plan. Nothing new is bought. A confirmation shows what's charged now to your card on file, the difference for the rest of the billing period, and that renewals are at the new price. Click **Upgrade to** in the confirmation to switch.
+
+Plans below yours show **Included in your plan**, and your own plan shows **Current Plan**. To move to a smaller plan, email [support@customergpt.ai](mailto:support@customergpt.ai).
 
 Payments are processed by Paddle, which also sends your receipts and invoices.
 
 ## Buy more messages
 
-If you need more messages without changing plans, buy the **Extra 5k Messages** add-on under **Billing & Plans**: 5,000 more messages every month, for $49 a month, or $39 a month billed yearly. While it's active, **Billing & Plans** shows **Active Addon** with the extra messages.
+If you need more messages without changing plans, buy the **Extra 5k Messages** add-on under **Billing & Plans** with **Buy Addon**: 5,000 more messages every month, for $49 a month, or $39 a month billed yearly. While it's active, **Billing & Plans** shows **Active Addon** with the extra messages. The add-on is cancelled together with your plan.
 
 ## Failed payments
 
-If a renewal payment fails, Paddle retries it. Your plan keeps working until the end of the paid period, or for 14 days after the first failed payment, whichever is later. If the payment still hasn't gone through by then, the workspace drops to the free tier.
+If a renewal payment fails, Paddle retries it, and your plan keeps working in the meantime. The dashboard shows **We couldn't take your payment.** with the date your card was declined.
+
+Click **Update payment** in that notice to enter a new card in Paddle's form. Paying there settles the overdue renewal, and the subscription renews as usual.
+
+Your plan keeps working until the end of the paid period, or for 30 days after the first failed payment, whichever is later. If Paddle gives up sooner and cancels or pauses the subscription, the workspace drops to the free tier then. While a payment is overdue, you can't change plans: update your payment method first.
+
+### Resume a paused subscription
+
+If Paddle paused your subscription after failed payments, the workspace is on the free tier, but the subscription still exists. Click **Upgrade to** on any plan under **Billing & Plans**: the page tells you the subscription is paused and offers **Resume subscription**. Resuming starts a new billing period, charges for it right away, and brings your plan back. If the card is declined, you're sent to Paddle's form to update it.
 
 ## Cancel
 
-To cancel, or to update your card, use the link in your Paddle receipt email, or email [support@customergpt.ai](mailto:support@customergpt.ai). Your plan stays active until the end of the period you paid for. For refunds, see the [refund policy](https://customergpt.ai/refund).
+Only the workspace owner can cancel.
+
+1. Open **Profile Settings** in the sidebar.
+2. Under **⚠️ Danger Zone**, click **Cancel Subscription**, then **Yes, Cancel Subscription**.
+
+Your plan stays active until the end of the period you've paid for, and **Danger Zone** shows that date. Then the workspace moves to the free tier, and the free tier's limits apply. Any add-on is cancelled with the plan. If a payment is overdue when you cancel, the plan ends right away.
+
+You can't change plans while a cancellation is pending.
+
+### Take back a cancellation
+
+Before your plan ends, open **Profile Settings** and click **Resume Subscription** under **⚠️ Danger Zone**. The subscription renews as before. If a payment is overdue, you're sent to Paddle's form to update your card first.
+
+## Update your card
+
+When a payment fails, use **Update payment** in the dashboard's notice. At any other time, use the link in your Paddle receipt email, or email [support@customergpt.ai](mailto:support@customergpt.ai).
+
+For refunds, see the [refund policy](https://customergpt.ai/refund).
