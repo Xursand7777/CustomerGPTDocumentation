@@ -31,6 +31,10 @@ Open your bot in Telegram, for example `t.me/YourBot`, press **Start**, and ask 
 - **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Telegram too.
 - **You can reply yourself.** Click **Take Over Chat** on the conversation in **Chat History** to pause the chatbot in that chat. Your bot sends **🎧 A team member has joined and will reply here.**, then each reply you send. Click **Release Chat to AI** to hand the chat back. See [Take over a conversation](/conversations/take-over-a-conversation).
 
+## If the bot stops answering
+
+CustomerGPT checks that every update really comes from Telegram, using a secret it registers with Telegram when you save your token. Bots connected before October 13, 2026 don't have that secret yet, so they stopped answering. Click **⚙️ Settings** on the **Telegram Bot** card and **Save Settings** again: the secret is registered, and the bot answers again.
+
 ## Pause or disconnect
 
 Click **Pause Bot** on the **Telegram Bot** card to stop answering, and **Activate Bot** to resume. To retire the bot for good, send `/deletebot` to @BotFather.

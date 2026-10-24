@@ -1,0 +1,61 @@
+---
+title: "Connect Crisp"
+description: "Let your CustomerGPT chatbot answer Crisp chats on your website, and step aside when one of your operators replies."
+---
+
+Once connected, your chatbot answers visitors in your Crisp chatbox, and in the channels Crisp connects to it, from the same knowledge it uses on your website. When one of your operators replies in a chat, the chatbot stays quiet there.
+
+Crisp is set up on the **Integrations** page, available on the Growth plan and above. You give CustomerGPT a website token from your Crisp workspace, then send Crisp's events to CustomerGPT with a web hook.
+
+## 1. Get a website token in Crisp
+
+1. In Crisp, open **Settings → Workspace Settings → Advanced configuration** and generate an API token. Only the workspace owner can do this. Copy the token's identifier and key.
+2. Copy your **Website ID** from Crisp's setup instructions. It's the ID in your chatbox code, such as `8c842203-7ed8-4e29-a608-7cf78a7d2fcc`.
+
+## 2. Connect it to CustomerGPT
+
+1. In CustomerGPT, select your chatbot, open **Integrations**, and click **🔌 Configure** on **Crisp Chat**.
+2. Fill in **Token identifier**, **Token key** and **Website ID**.
+3. Optionally, enter a **Handoff operator**: the email address of the Crisp operator who gets the chats the chatbot hands over. Leave it empty to leave those chats unassigned.
+4. Click **Save Settings**. CustomerGPT checks the token with Crisp, and the **Crisp Web Hook URL** appears.
+
+The URL ends with a key that proves the events come from your web hook. Keep it private.
+
+## 3. Send Crisp's events to CustomerGPT
+
+1. In Crisp, open **Advanced configuration → Web Hooks** and add a web hook with the **Crisp Web Hook URL**.
+2. Select the events `message:send`, `message:received`, `session:set_state` and `session:removed`, and save.
+3. Turn off Crisp's own chatbot or AI agent if it answers the same chats.
+
+## Test it
+
+Open your website, start a chat in the Crisp chatbox, and ask a question.
+
+## How it works
+
+- **One conversation per Crisp chat.** Each one appears in **Chat History** under the visitor's Crisp nickname, tagged `crisp`. Every answer counts toward your monthly messages.
+- **Text only.** The chatbot answers text messages. Files and other message types are ignored.
+- **Email is skipped.** Messages that reach Crisp by email aren't answered, so the chatbot never replies to an auto-responder.
+- **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Crisp too. See [Collect leads](/leads/collect-leads).
+
+### When an operator replies
+
+When one of your operators replies in a chat the chatbot has been answering, the chatbot stays quiet there. The visitor's messages still appear in **Chat History**, where the conversation shows as live. Private notes don't count as replies.
+
+When you resolve the chat in Crisp, the visitor's next message starts a new conversation with the chatbot.
+
+### Handing a chat to your team
+
+With [Sales Automation](/leads/collect-leads) on, when the visitor asks for a person or writes one of your handoff phrases, the chatbot sends its reply, assigns the chat to your handoff operator if you set one, and adds a private note: **CustomerGPT handed this conversation to your team: the visitor asked for a human, or the bot could not help.** It then stays quiet until the chat is resolved.
+
+### Replying from CustomerGPT
+
+You can also reply from CustomerGPT. Click **Take Over Chat** on the conversation in **Chat History**: the visitor gets **🎧 A team member has joined and will reply here.**, then each reply you send. Click **Release Chat to AI** to hand it back. See [Take over a conversation](/conversations/take-over-a-conversation).
+
+## Reconnect needed
+
+If Crisp rejects the token, for example because it was revoked, the card shows **Reconnect needed** and the chatbot can't reply. Generate a new website token in Crisp, paste it under **⚙️ Settings**, and click **Save Settings**.
+
+## Pause or disconnect
+
+Click **Pause Bot** on the **Crisp Chat** card to stop answering, and **Activate Bot** to resume. The web hook URL stays the same, so there's nothing to change in Crisp. To disconnect for good, delete the web hook in Crisp.

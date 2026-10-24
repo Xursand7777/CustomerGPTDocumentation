@@ -1,0 +1,65 @@
+---
+title: "Connect Zoho SalesIQ"
+description: "Let your CustomerGPT chatbot answer Zoho SalesIQ chats as a Zobot, and forward visitors to your operators when a person is needed."
+---
+
+Once connected, your chatbot answers SalesIQ visitors as a Zobot, from the same knowledge it uses on your website. When a visitor needs a person, SalesIQ forwards the chat to your operators by its own routing rules.
+
+Zoho SalesIQ is set up on the **Integrations** page, available on the Growth plan and above. There are two parts: you connect the Zoho account the chatbot replies through, then you create a Zobot in SalesIQ that sends visitors' messages to CustomerGPT.
+
+## 1. Connect your Zoho account
+
+1. In CustomerGPT, select your chatbot, open **Integrations**, and click **🔌 Connect Zoho** on **Zoho SalesIQ**.
+2. Sign in to Zoho as a SalesIQ operator and approve access. The chatbot's replies are sent through this account.
+3. Back in CustomerGPT, the card shows the portal it answers in, under **Answering in**.
+
+If your Zoho account has more than one SalesIQ portal, the card shows **Pick a portal**. Click **⚙️ Settings**, choose the portal, and click **Use portal**.
+
+Zoho accounts in the United States, Europe, India, Australia, Japan and Canada data centers are supported. Zoho's China data center isn't.
+
+## 2. Create the Zobot in SalesIQ
+
+1. In CustomerGPT, click **⚙️ Settings** on the **Zoho SalesIQ** card and copy the **Zobot webhook URL**. Keep the window open.
+2. In SalesIQ, open **Settings → Bot → Zobot**, add a bot, and choose **Webhooks** as its platform.
+3. Paste the webhook URL and turn on **Secure your webhook**.
+4. Copy the public key SalesIQ shows, paste it into **Webhook public key** in CustomerGPT, and click **Save Settings**.
+5. Publish the bot in SalesIQ.
+
+The card now shows **Active**.
+
+## Test it
+
+Open your website, start a chat in the SalesIQ widget, and ask a question. You see **One moment, please…** while the chatbot writes its answer, then the answer.
+
+## How it works
+
+- **Greeting.** When a visitor lands on your site and the Zobot starts, the chatbot greets them with your **Welcome Message Greeting**.
+- **One conversation per SalesIQ chat.** Each one appears in **Chat History**, tagged `zoho_salesiq`. Every answer counts toward your monthly messages.
+- **Text only.** A message with only a file gets **I can only read text messages. Please type your question.**
+- **Some channels go straight to your operators.** SalesIQ can't wait for the chatbot's answer in chats from WhatsApp, Facebook, Instagram, Telegram and LINE, so those chats are forwarded to your operators right away.
+- **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in SalesIQ too. See [Collect leads](/leads/collect-leads).
+
+### Forwarding to your operators
+
+With [Sales Automation](/leads/collect-leads) on, when the visitor asks for a person or writes one of your handoff phrases, the chatbot sends its reply and SalesIQ forwards the chat to your operators, following your routing rules. If no operator is available, the visitor gets **No one from our team is available right now. Please leave your question here and we will get back to you.**
+
+Chats are also forwarded right away, with **Let me connect you with our team.**, while the chatbot can't answer: the bot is paused, Zoho isn't connected, no portal is picked, or your plan doesn't include integrations.
+
+### Replying from CustomerGPT
+
+You can also reply from CustomerGPT. Click **Take Over Chat** on the conversation in **Chat History**: the chatbot stops answering in that chat, and your replies are posted in SalesIQ. Click **Release Chat to AI** to hand it back. See [Take over a conversation](/conversations/take-over-a-conversation).
+
+## Status on the card
+
+| Status | Meaning |
+| --- | --- |
+| **Active** | The chatbot answers SalesIQ chats. |
+| **Paused** | You paused the bot. Chats go straight to your operators. |
+| **Setup incomplete** | Zoho is connected, but the webhook public key isn't saved yet. |
+| **Pick a portal** | Choose the SalesIQ portal under **⚙️ Settings**. |
+| **Reconnect needed** | Zoho no longer accepts the connection, for example because access was revoked. Click **Reconnect Zoho**. |
+| **Disconnected** | Click **🔌 Connect Zoho**. |
+
+## Pause or disconnect
+
+Click **Pause Bot** on the card to stop answering, and **Activate Bot** to resume. To disconnect, click **Disconnect** under **⚙️ Settings**: this revokes CustomerGPT's access to your Zoho account. Then unpublish or delete the Zobot in SalesIQ.

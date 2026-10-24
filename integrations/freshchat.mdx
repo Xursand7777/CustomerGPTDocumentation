@@ -1,0 +1,65 @@
+---
+title: "Connect Freshchat"
+description: "Let your CustomerGPT chatbot answer Freshchat conversations as a Freshchat agent, and step aside when one of your agents takes the chat."
+---
+
+Once connected, your chatbot answers visitors in Freshchat (Freshdesk Messaging), from the same knowledge it uses on your website. It replies as a Freshchat agent you set aside for it. When one of your agents takes a chat, the chatbot stays quiet there.
+
+Freshchat is set up on the **Integrations** page, available on the Growth plan and above.
+
+## 1. Copy the webhook URL
+
+In CustomerGPT, select your chatbot, open **Integrations**, and click **🔌 Configure** on **Freshchat**. Copy the **Freshchat Webhook URL** at the bottom of the window. Keep the window open.
+
+## 2. Prepare Freshchat
+
+1. In Freshchat, add a team member for the chatbot, such as "AI Assistant". The chatbot's replies show this name.
+2. In **Admin → API settings**, generate an API key and copy the API URL, labeled "Your chat URL".
+3. In **Admin → Webhooks**, turn on conversation webhooks, paste the **Freshchat Webhook URL**, and copy the RSA public key Freshchat shows.
+4. Turn off any Freshchat bots that would answer the same conversations.
+
+## 3. Connect it to CustomerGPT
+
+Back in CustomerGPT, fill in:
+
+- **API URL**: the address from API settings, such as `acme.freshchat.com` or `acme-123.myfreshworks.com`.
+- **API Key**: the key you generated.
+- **Bot agent email**: the email of the team member you added for the chatbot.
+- **Handoff group** (optional): the name of the Freshchat group that gets the chats the chatbot hands over. Leave it empty to leave those chats where they are.
+- **Webhook RSA public key**: the key from the webhook settings, starting with `-----BEGIN PUBLIC KEY-----`.
+
+Click **Save Settings**. CustomerGPT checks the API key with Freshchat and finds the chatbot's agent and the handoff group. If one of them can't be found, you're told which, and nothing is saved.
+
+## Test it
+
+Open the Freshchat widget on your site, start a conversation, and ask a question.
+
+## How it works
+
+- **One conversation per Freshchat conversation.** Each one appears in **Chat History**, tagged `freshchat`. Every answer counts toward your monthly messages.
+- **Text only.** The chatbot answers the text of visitors' messages. Private notes are ignored.
+- **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Freshchat too. See [Collect leads](/leads/collect-leads).
+
+### When an agent takes the chat
+
+When a Freshchat agent other than the chatbot's is assigned a chat, or replies in it, the chatbot stays quiet there until the chat is resolved. The visitor's messages still appear in **Chat History**, where the conversation shows as live. Assigning a chat only to a group doesn't count, so your routing rules can keep sending new chats to a group while the chatbot answers them.
+
+If an agent is assigned a chat before the chatbot has seen it, the chatbot doesn't answer in that chat at all.
+
+When you resolve the chat in Freshchat, the visitor's next message starts a new conversation with the chatbot.
+
+### Handing a chat to your team
+
+With [Sales Automation](/leads/collect-leads) on, when the visitor asks for a person or writes one of your handoff phrases, the chatbot sends its reply and assigns the chat to your handoff group, if you set one. It then stays quiet until the chat is resolved.
+
+### Replying from CustomerGPT
+
+You can also reply from CustomerGPT. Click **Take Over Chat** on the conversation in **Chat History**: the visitor gets **🎧 A team member has joined and will reply here.**, then each reply you send. Click **Release Chat to AI** to hand it back. See [Take over a conversation](/conversations/take-over-a-conversation).
+
+## Reconnect needed
+
+If Freshchat rejects the API key, the card shows **Reconnect needed** and the chatbot can't reply. Generate a new key in Freshchat's API settings, paste it under **⚙️ Settings**, and click **Save Settings**.
+
+## Pause or disconnect
+
+Click **Pause Bot** on the **Freshchat** card to stop answering, and **Activate Bot** to resume. To disconnect for good, remove the webhook URL in Freshchat's webhook settings.

@@ -13,11 +13,9 @@ HubSpot is set up on the **Integrations** page, available on the Growth plan and
 2. Sign in to HubSpot, choose the account (portal) to connect, and approve access.
 3. Back in CustomerGPT, the card shows **Connected**, with the portal's ID and name.
 
-## Turn on lead delivery
+## Lead delivery turns on by itself
 
-1. Open **Sales Automation**.
-2. Turn on **Send contacts and qualification summaries to HubSpot**.
-3. Click **Save sales settings**.
+Connecting HubSpot turns on [Sales Automation](/leads/collect-leads) and **Send contacts and qualification summaries to HubSpot** for that chatbot, so leads start flowing right away. To stop sending leads without disconnecting, open **Sales Automation**, turn off **Send contacts and qualification summaries to HubSpot**, and click **Save sales settings**.
 
 ## What gets sent
 
@@ -31,11 +29,13 @@ CustomerGPT creates or updates the contact matched by email address, so a visito
 | `company` | The answer to the `company` qualification question, if any. |
 | `message` | A summary of the visitor's answers to your qualification questions. |
 
-The contact is updated as the conversation goes on and the chatbot learns more.
+The contact is updated as the conversation goes on and the chatbot learns more, including while someone on your team has [taken over](/conversations/take-over-a-conversation) the conversation.
 
 ## Check deliveries
 
-**Sales Automation → Recent deliveries** lists each delivery to HubSpot with its status and number of attempts. Failed deliveries are retried automatically.
+**Sales Automation → Recent deliveries** lists each delivery to HubSpot with its status, number of attempts and last error. CustomerGPT retries a failed delivery automatically, up to 8 times, waiting longer between attempts.
+
+If a delivery still fails, fix the cause, then click **Retry** next to it, or **Retry all failed** when there are several. The attempts start over and the delivery is sent at once. Reconnecting HubSpot in **Integrations** also resends the deliveries that failed.
 
 ## Things to know
 
