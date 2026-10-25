@@ -17,7 +17,7 @@ Webhooks are available on the Scale plan and above.
 The same two fields are also in **Customizer**, under **Outgoing Webhooks**, where **Generate Secret** creates a secret for you. Both places change the same settings. The webhook works whether Sales Automation is on or off.
 
 <Warning>
-  Always set a signing secret. Without one, the signature can't prove that a request came from CustomerGPT.
+  Always set a signing secret. Without one, webhooks arrive without the `x-customergpt-signature` header, so nothing proves that a request came from CustomerGPT.
 </Warning>
 
 The URL must be publicly reachable on the standard port, 443 for HTTPS or 80 for HTTP. Use HTTPS so the payload is encrypted in transit. CustomerGPT doesn't send webhooks to `localhost` or private network addresses, and doesn't follow redirects.
@@ -75,7 +75,9 @@ x-customergpt-event-id: 0b5a7c1e-3f0e-4c4b-9b8f-2f6a1d9e7c11
 
 ## Verify the signature
 
-`x-customergpt-signature` is the hex-encoded HMAC-SHA256 of the raw request body, keyed with your signing secret. Compute it over the body exactly as received, before parsing the JSON:
+`x-customergpt-signature` is the hex-encoded HMAC-SHA256 of the raw request body, keyed with your signing secret. A chatbot without a signing secret sends its webhooks without this header, and the example below refuses them with `401`.
+
+Compute the signature over the body exactly as received, before parsing the JSON:
 
 ```js
 import crypto from "node:crypto";
