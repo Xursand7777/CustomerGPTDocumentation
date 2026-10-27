@@ -3,13 +3,13 @@ title: "Connect Zendesk messaging"
 description: "Let your CustomerGPT chatbot answer Zendesk messaging conversations and pass them to your agents when a person is needed."
 ---
 
-CustomerGPT is a Marketplace bot in Zendesk. Once connected, your chatbot answers the messaging conversations Zendesk hands it, from the same knowledge it uses on your website. When a visitor needs a person, it passes the conversation to your Zendesk agents.
+CustomerGPT is a Marketplace bot in Zendesk. Once connected, your chatbot answers the messaging conversations Zendesk hands it: in the Web Widget, the mobile SDKs, and the social messaging channels you've connected to Zendesk. It answers from the same knowledge it uses on your website. When a visitor needs a person, it passes the conversation to your Zendesk agents.
 
 You need:
 
 - The Growth plan or above.
 - To be the owner of your CustomerGPT workspace. Team members can't link the bot.
-- Admin access to a Zendesk account with messaging.
+- Admin access to a Zendesk account with messaging turned on. Zendesk supports Marketplace bots on Suite Professional, Enterprise and Enterprise Plus.
 
 <Note>
   This page is about answering conversations. To train your chatbot on Zendesk Help Center articles, see [Connect cloud storage and help centers](/knowledge/connect-cloud-storage).
@@ -17,7 +17,7 @@ You need:
 
 ## 1. Install CustomerGPT in Zendesk
 
-1. In Zendesk Admin Center, install **CustomerGPT** from the Zendesk Marketplace.
+1. In Zendesk Admin Center, install **CustomerGPT** from the [Zendesk Marketplace](https://www.zendesk.com/marketplace/).
 2. Approve access. Zendesk sends you to the CustomerGPT dashboard.
 
 If you don't have a CustomerGPT account yet, sign up on the page Zendesk opens. A new account started from a Zendesk install begins with a 14-day trial of the Growth plan, so the install can be linked right away.
@@ -26,33 +26,42 @@ If you don't have a CustomerGPT account yet, sign up on the page Zendesk opens. 
 
 1. Sign in as the owner of your CustomerGPT workspace. The **Zendesk messaging bot** panel appears at the top of **Integrations**.
 2. In **Chatbot**, pick the chatbot that should answer.
-3. Click **Link chatbot**. The panel shows **Connected to** and your Zendesk account.
+3. Click **Link chatbot**. The panel shows **Connected to** and your Zendesk account, such as `acme.zendesk.com`.
 
 <Warning>
   The install works once, and only for 15 minutes after Zendesk sends you back. If it runs out, install CustomerGPT again from Zendesk Admin Center and link a chatbot then.
 </Warning>
 
+Until a chatbot is linked, the bot answers nothing.
+
 ## 3. Choose the channels it answers
 
-In Zendesk Admin Center, under **AI agents → Marketplace bots**, make CustomerGPT the responder for all your messaging channels or only some of them.
+In Zendesk Admin Center, go to **AI → AI agents → AI agents** and click **Marketplace bots**. Then make CustomerGPT the responder:
+
+- **For all messaging channels:** open the options menu on **CustomerGPT**, select **Assign default**, and click **Save**. This replaces your current AI agent or default response as the first responder.
+- **For some channels only:** click **CustomerGPT**, expand **Basics**, tick the channels under **Channels**, and click **Save**.
+
+Zendesk's guide, [Managing third-party bots in Admin Center](https://support.zendesk.com/hc/en-us/articles/5064149334426-Managing-third-party-bots-in-Admin-Center), has the details. Menu names can differ slightly between versions of Admin Center.
 
 ## Test it
 
-Open the Zendesk Web Widget on your site. The chatbot greets you with your **Welcome Message Greeting**. Ask a question and check the answer.
+Open the Zendesk Web Widget on your site. If you've set a **Welcome Message Greeting**, the chatbot greets you with it. Ask a question and check the answer.
 
 ## How it works
 
 - **One conversation per Zendesk conversation.** Each one appears in **Chat History** under the user's Zendesk display name, tagged `zendesk_bot`. Every answer counts toward your monthly messages.
-- **Greeting.** When a user opens the Web Widget or a mobile SDK, the chatbot posts your welcome message. A conversation that starts with a message gets an answer to that message instead.
-- **Text only.** The chatbot answers text messages from users. Answers longer than 4,096 characters, Zendesk's limit, are cut off.
+- **Greeting.** When a user opens the Web Widget or a mobile SDK, or comes in through a referral link, the chatbot posts your welcome message. A conversation that starts with a message gets an answer to that message instead. If your **Welcome Message Greeting** is empty, the chatbot sends no greeting in Zendesk. See [Widget appearance](/customize/widget-appearance).
+- **Text only.** The chatbot answers text messages from users. Images and files are ignored. Answers longer than 4,096 characters, Zendesk's limit, are cut off.
 - **It answers only while it's in control.** Conversations that your agents or another bot control are left alone.
 - **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Zendesk too. See [Collect leads](/leads/collect-leads).
 
 ### Handing a conversation to your agents
 
-With [Sales Automation](/leads/collect-leads) on, when the visitor asks for a person or writes one of your handoff phrases, the chatbot sends its reply and passes the conversation to the next responder in Zendesk, normally your agents in Agent Workspace.
+With [Sales Automation](/leads/collect-leads) on, which is the default, the chatbot hands a conversation over when the visitor writes one of your handoff phrases, or when the AI decides they need a person, for example because they asked for one. It sends its reply and passes the conversation to the next responder in Zendesk, normally your agents in Agent Workspace. The agent's ticket shows the whole conversation with the chatbot, from the visitor's first message, so nobody has to repeat themselves.
 
-From then on, the chatbot stays out of that conversation. When the ticket is closed and the user writes again, the chatbot starts a new conversation.
+From then on, the chatbot stays out of that conversation and your agents answer in Zendesk. In **Chat History**, the conversation stops at the handoff, and replies sent from there no longer reach the user. When the ticket is closed and the user writes again, the chatbot starts a new conversation.
+
+With Sales Automation off, the chatbot never passes conversations to your agents.
 
 If Zendesk refuses the handoff, the chatbot keeps the conversation, and it shows as live in **Chat History**, so someone on your team can [take it over](/conversations/take-over-a-conversation) there.
 
@@ -64,12 +73,40 @@ Zendesk requires a Marketplace bot to release a conversation once the user has b
 
 You can also reply from CustomerGPT. Click **Take Over Chat** on the conversation in **Chat History**: the user gets **🎧 A team member has joined and will reply here.**, then each reply you send. Click **Release Chat to AI** to hand it back. See [Take over a conversation](/conversations/take-over-a-conversation).
 
-## Switch chatbots or disconnect
+## Switch chatbots
 
-- **Switch chatbots:** install CustomerGPT from Zendesk Admin Center again and link a different chatbot. Conversations already open in Zendesk start fresh with the new chatbot.
-- **Disconnect:** uninstall CustomerGPT in Zendesk Admin Center.
+Install CustomerGPT from Zendesk Admin Center again and link a different chatbot. The current chatbot keeps answering until you do. Conversations already open in Zendesk then start fresh with the new chatbot.
 
 If your workspace drops below the Growth plan, the chatbot stops answering in Zendesk until you upgrade.
+
+## Uninstall
+
+There's no disconnect button in the CustomerGPT dashboard. To disconnect, uninstall CustomerGPT in Zendesk:
+
+1. In Zendesk Admin Center, go to **AI → AI agents → AI agents** and click **Marketplace bots**.
+2. If CustomerGPT is your default responder, open its options menu and select **Assign default to Zendesk AI agents**. Zendesk doesn't uninstall the bot that holds the default role.
+3. Open the options menu on **CustomerGPT** and select **Uninstall**.
+
+Zendesk then tells CustomerGPT. CustomerGPT checks with Zendesk that its access was revoked, deletes its access token, and unlinks your chatbot. The chatbot stops answering in Zendesk. Your chatbot, its knowledge, and the conversations already in **Chat History** stay in CustomerGPT.
+
+To connect again later, install CustomerGPT from the Marketplace and link a chatbot.
+
+## Data CustomerGPT stores
+
+| What | Why |
+| --- | --- |
+| Your Zendesk account's app ID, subdomain and display name | To know which Zendesk account the bot works for, and to show it on the **Integrations** page |
+| An access token for your Zendesk account | To set up the webhook, send the chatbot's replies, and pass conversations to your agents or back to Zendesk |
+| The ID and secret of the webhook CustomerGPT registers in Zendesk | To check that the messages it receives really come from Zendesk |
+| The messages of the conversations the bot handles: the user's text messages and the chatbot's replies | To show them in **Chat History** |
+| The user's Zendesk display name and Zendesk user ID | To name the conversation in **Chat History** |
+| Zendesk's IDs for the conversation and its first message | To reply in the right conversation, and to show agents the whole conversation after a handoff |
+
+To answer, CustomerGPT sends the text of the user's messages to its AI provider. Messages in conversations the bot isn't handling, such as those with your agents, are ignored and not stored.
+
+When you uninstall, CustomerGPT deletes the access token, the webhook's ID and secret, and the link to your chatbot. It keeps a record of the removed install, with the app ID, subdomain and display name.
+
+Questions about your data: [support@customergpt.ai](mailto:support@customergpt.ai).
 
 ## Troubleshooting
 
@@ -78,5 +115,13 @@ If your workspace drops below the Growth plan, the chatbot stops answering in Ze
 | **This Zendesk install is no longer valid** | The 15 minutes ran out, or the install was already linked. Install CustomerGPT again from Zendesk Admin Center. |
 | **Only the owner of this CustomerGPT workspace can link the Zendesk bot** | Ask the workspace owner to sign in and link a chatbot. |
 | A message about your plan, with **See plans** | Your plan doesn't include integrations. Upgrade before the install runs out, then link it. |
+| **Zendesk did not respond while CustomerGPT was connecting to it** | Nothing was linked. Click **Retry** before the time shown in the panel. |
 | **The install was cancelled in Zendesk** | Nothing was connected. Install CustomerGPT again. |
 | **Zendesk could not finish installing CustomerGPT** | Install it again. If it keeps failing, email [support@customergpt.ai](mailto:support@customergpt.ai). |
+
+If the chatbot doesn't answer in Zendesk, check that:
+
+- the **Integrations** panel showed **Connected to** your Zendesk account after you linked a chatbot;
+- CustomerGPT is the responder for that channel in Admin Center, under **AI → AI agents → AI agents → Marketplace bots**;
+- the conversation isn't with one of your agents, and nobody has clicked **Take Over Chat** on it in **Chat History**;
+- the user sent text, not only an image or a file.
