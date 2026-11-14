@@ -45,13 +45,14 @@ Zendesk's guide, [Managing third-party bots in Admin Center](https://support.zen
 
 ## Test it
 
-Open the Zendesk Web Widget on your site. If you've set a **Welcome Message Greeting**, the chatbot greets you with it. Ask a question and check the answer.
+Open the Zendesk Web Widget on your site. If you've set a **Welcome Message Greeting**, the chatbot greets you with it, with your [quick prompts](/customize/quick-prompts) as buttons underneath. Ask a question or tap a prompt, and check the answer.
 
 ## How it works
 
 - **One conversation per Zendesk conversation.** Each one appears in **Chat History** under the user's Zendesk display name, tagged `zendesk_bot`. Every answer counts toward your monthly messages.
 - **Greeting.** When a user opens the Web Widget or a mobile SDK, or comes in through a referral link, the chatbot posts your welcome message. A conversation that starts with a message gets an answer to that message instead. If your **Welcome Message Greeting** is empty, the chatbot sends no greeting in Zendesk. See [Widget appearance](/customize/widget-appearance).
-- **Text only.** The chatbot answers text messages from users. Images and files are ignored. Answers longer than 4,096 characters, Zendesk's limit, are cut off.
+- **Quick prompts.** Your [quick prompts](/customize/quick-prompts) appear as reply buttons under the greeting. A tap sends the prompt as the user's message, and the chatbot answers it. Without a greeting, there are no buttons. Some social channels show fewer buttons than the Web Widget.
+- **Text replies.** The chatbot answers text messages from users, taps on quick prompts included. Images and files are ignored. Answers longer than 4,096 characters, Zendesk's limit, are cut off.
 - **It answers only while it's in control.** Conversations that your agents or another bot control are left alone.
 - **Sales Automation applies.** If it's on, the chatbot qualifies and collects contact details in Zendesk too. See [Collect leads](/leads/collect-leads).
 
