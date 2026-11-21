@@ -58,7 +58,8 @@
             "pages": [
               "install/add-to-your-website",
               "install/wordpress",
-              "install/webflow"
+              "install/webflow",
+              "install/wix"
             ]
           },
           {
